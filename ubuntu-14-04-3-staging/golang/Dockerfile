@@ -59,15 +59,15 @@ RUN curl -fsSL "$GOLANG_DOWNLOAD_URL" -o golang.tar.gz \
 	&& rm golang.tar.gz
 
 ENV GOPATH /go
-ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
+ENV PATH $GOPATH/bin:/usr/local/go/bin:/opt/bin:$PATH
 
 RUN mkdir -p "$GOPATH/src" "$GOPATH/bin" && chmod -R 777 "$GOPATH"
 WORKDIR $GOPATH
 
 #COPY go-wrapper /usr/local/bin/
-#RUN if [ -z "$HOME" ]; then HOME="/root"; fi; 
-RUN mkdir -p "$HOME/bin" \
-        && echo "export PATH=$HOME/bin:$PATH" >> $HOME/.bashrc \
-        && curl https://raw.githubusercontent.com/docker-library/golang/51d6eacd41fe80d41105142b9ad32f575082970f/1.5/go-wrapper \
-                -o "$HOME/bin/go-wrapper" \
-        && chmod -R 777 "$HOME/bin/" 
+RUN if [ ! -d "/opt/bin" ]; then mkdir -p /opt/bin; fi 
+#RUN mkdir -p "$HOME/bin" \
+#        && echo "export PATH=$HOME/bin:$PATH" >> $HOME/.bashrc 
+RUN curl https://raw.githubusercontent.com/docker-library/golang/51d6eacd41fe80d41105142b9ad32f575082970f/1.5/go-wrapper \
+                -o "/opt/bin/go-wrapper" \
+        && chmod -R 777 "/opt/bin/" 

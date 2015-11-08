@@ -6,6 +6,12 @@ And base image using curl/ Dockerfile
 
 Then git ready image using scm/ Dockerfile
 
-* Golang 1.5.1
+* Golang-1.5.1
 
-  < 1G
+  size: 611.9G
+
+  usage:
+
+    1. run into interactive mode
+
+    2. run to execute go-wrapper command

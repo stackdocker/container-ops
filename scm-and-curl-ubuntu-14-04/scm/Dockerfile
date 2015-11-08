@@ -1,5 +1,6 @@
-FROM ubuntu:14.04.3
-MAINTAINER Tang Feixiong, <tangfx128@gmail.com>
+#This content are based on https://github.com/docker-library/buildpack-deps, under trusty scm sub-directory
+#FROM buildpack-deps:trusty-curl
+FROM quay.io/tangfeixiong/ubuntu-14-04-3:curl
 
 #RUN apt-get update && apt-get install -y --no-install-recommends \
 #		bzr \
@@ -9,4 +10,7 @@ MAINTAINER Tang Feixiong, <tangfx128@gmail.com>
 #		subversion \
 #	&& rm -rf /var/lib/apt/lists/*
 
-RUN apt-get install -y --no-install-recommands git openssh-client
+RUN apt-get update && apt-get install -y --no-install-recommends \
+                git \
+                openssh-client \
+        && rm -rf /var/lib/apt/lists/*

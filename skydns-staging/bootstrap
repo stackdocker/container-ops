@@ -1,0 +1,22 @@
+#!/bin/bash
+set -e -x
+
+if [ $# -ne 1 ]; then
+    echo "Skip to build as source args not specified" >/dev/stderr
+    exit 1
+fi
+
+go-wrapper download "$@"
+if [ ! -f "$GOPATH/src/$@/main.go" ]; then
+    echo "Skip to build as source not existed" >/dev/stderr
+    exit 1
+fi
+
+go-wrapper install "$@"
+if [ -f "$GOPATH/bin/skydns" ]; then
+        cp -f $GOPATH/bin/skydns /tmp/bin/
+fi
+
+if [ -f "$GOPATH/src/$@/Dockerfile" ]; then
+        cp -f $GOPATH/src/$@/Dockerfile /tmp/bin/
+fi

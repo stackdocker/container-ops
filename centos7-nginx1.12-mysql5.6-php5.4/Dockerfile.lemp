@@ -1,0 +1,150 @@
+# Inspired by https://github.com/doig-u/docker-lemp
+FROM centos:7
+LABEL maintainer="tangfeixiong <tangfx128@gmail.com>" \
+      project="stackdocker" \
+      repository="containerops/centos7-nginx1.10.2-mysql5.7-php5.4.16" \
+      tag="LEMP centos nginx mysql php"
+
+RUN set -e \
+
+# Install
+    && yum install -y epel-release \
+    && echo -e '[nginx]\nname=nginx repo\nbaseurl=http://nginx.org/packages/centos/$releasever/$basearch/\ngpgcheck=0\nenabled=1' > /etc/yum.repos.d/nginx.repo \
+    # curl -jkSL https://dev.mysql.com/get/mysql57-community-release-el7-9.noarch.rpm -O 
+    # rpm -ivh mysql57-community-release-el7-9.noarch.rpm 
+    # rm -f mysql57-community-release-el7-9.noarch.rpm 
+    && yum install -y http://www.percona.com/downloads/percona-release/redhat/0.1-4/percona-release-0.1-4.noarch.rpm \
+# install "pwgen" for randomizing passwords
+    && install_PKGs=" \
+        ca-certificates \
+        nginx \
+        # mysql-community-server 
+        pwgen \
+        php-cli \
+        php-fpm \
+        php-mysql \
+        php-gd \
+        php-mcrypt \
+        supervisor \
+     " \
+    && yum install -y $install_PKGs \
+    && rpm -V $install_PKGs \
+    && yum clean all \
+
+# Nginx
+    && mkdir -p /var/log/nginx \
+    && ln -sf /dev/stdout /var/log/nginx/access.log \
+	&& ln -sf /dev/stderr /var/log/nginx/error.log \
+    # mv /etc/nginx/sites-available/default /etc/nginx/conf.d/default.conf 
+    # rm -rf /etc/nginx/sites-available /etc/nginx/sites-enable 
+
+# PHP
+    && mkdir -p /var/log/php/ /run/php /run/php-fpm \
+    && ln -sf /dev/stderr /var/log/php/error.log \
+    && ln -sf /dev/stderr /var/log/php-fpm/error.log \
+
+# Supervisor
+    && mkdir -p /var/log/supervisor
+
+### COPY ./etc/supervisor/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+### COPY ./etc/nginx/nginx.conf /etc/nginx/
+### COPY ./etc/php/php.ini ./etc/php/php-fpm.conf /etc/php/7.0/fpm/
+### COPY ./etc/php/www.conf /etc/php/7.0/fpm/pool.d/
+COPY ./etc/ /tmp/etc/
+
+RUN mkdir -p /etc/nginx/conf.d \
+    && mkdir -p /etc/php-fpm.d \
+    && mkdir -p /etc/supervisor/conf.d \
+    && cp -f /tmp/etc/nginx/nginx.conf /etc/nginx/ \
+    && cp -f /tmp/etc/nginx/default1.12.conf /etc/nginx/conf.d/default.conf \
+    && cp -f /tmp/etc/php/php5.4.ini /etc/php.ini \
+    && cp -f /tmp/etc/php/php-fpm5.4.conf /etc/php-fpm.conf \
+    && cp -f /tmp/etc/php/www5.4.conf /etc/php-fpm.d/www.conf \
+    && cp -f /tmp/etc/supervisor/supervisord-php5.4.conf /etc/supervisor/conf.d/supervisord.conf \
+    && rm -rf /tmp/etc
+
+# MySQL (Percona). Config as here: https://hub.docker.com/_/percona/
+
+# add our user and group first to make sure their IDs get assigned consistently, regardless of whatever dependencies get added
+RUN groupadd -r mysql \
+    && useradd -r -g mysql mysql \
+
+# add gosu for easy step-down from root
+    && export GOSU_VERSION=1.10 \
+	&& curl -jkSL https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-amd64 -o /usr/local/bin/gosu \
+	&& curl -jkSL https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-amd64.asc -o /usr/local/bin/gosu.asc \
+	&& export GNUPGHOME="$(mktemp -d)" \
+	&& gpg --keyserver ha.pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4 \
+	&& gpg --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu \
+	&& rm -r "$GNUPGHOME" /usr/local/bin/gosu.asc \
+	&& chmod +x /usr/local/bin/gosu \
+	&& gosu nobody true
+
+ENV GPG_KEYS \
+# pub   1024D/CD2EFD2A 2009-12-15
+#       Key fingerprint = 430B DF5C 56E7 C94E 848E  E60C 1C4C BDCD CD2E FD2A
+# uid                  Percona MySQL Development Team <mysql-dev@percona.com>
+# sub   2048g/2D607DAF 2009-12-15
+	430BDF5C56E7C94E848EE60C1C4CBDCDCD2EFD2A \
+# pub   4096R/8507EFA5 2016-06-30
+#       Key fingerprint = 4D1B B29D 63D9 8E42 2B21  13B1 9334 A25F 8507 EFA5
+# uid                  Percona MySQL Development Team (Packaging key) <mysql-dev@percona.com>
+# sub   4096R/4CAC6D72 2016-06-30
+	4D1BB29D63D98E422B2113B19334A25F8507EFA5
+RUN set -ex \
+	&& export GNUPGHOME="$(mktemp -d)" \
+	&& for key in $GPG_KEYS; do \
+		gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "$key"; \
+	done \
+	&& gpg --export $GPG_KEYS > /percona.gpg \
+	&& rm -r "$GNUPGHOME" \
+	&& rpm -q gpg-pubkey --qf '%{NAME}-%{VERSION}-%{RELEASE}\t%{SUMMARY}\n'
+
+ENV PERCONA_MAJOR 5.6
+
+RUN set -e \
+    && yum install -y Percona-Server-server-56 \
+    && rpm -V Percona-Server-server-56 \
+    # yum remove -y Percona-Server-shared-56
+    # yum install -y Percona-Server-server-57
+    # rpm -V Percona-Server-server-57
+    && yum clean all \
+    
+# comment out any "user" entires in the MySQL config ("docker-entrypoint.sh" or "--user" will handle user switching)
+	&& sed -ri 's/^user\s/#&/' /etc/mysql/my.cnf \
+# purge and re-create /var/lib/mysql with appropriate ownership
+	&& rm -rf /var/lib/mysql && mkdir -p /var/lib/mysql /var/run/mysqld \
+	&& chown -R mysql:mysql /var/lib/mysql /var/run/mysqld \
+# ensure that /var/run/mysqld (used for socket and lock files) is writable regardless of the UID our mysqld instance ends up having at runtime
+	&& chmod 777 /var/run/mysqld \
+# comment out a few problematic configuration values
+# don't reverse lookup hostnames, they are usually another container
+	&& find /etc -name '*.cnf' -print0 \
+		| xargs -0 grep -lZE '^(bind-address|log)' \
+		| xargs -0 sed -Ei 's/^(bind-address|log)/#&/' \
+	&& myCnf="$(find /etc -name '*.cnf' -print0 \
+		| xargs -0 grep -lE '^\[mysqld\]' \
+		| head -n1)" \
+	&& echo 'skip-host-cache\nskip-name-resolve' \
+		| awk '{ print } $1 == "[mysqld]" && c == 0 { c = 1; system("cat") }' "$myCnf" > /tmp/my.cnf \
+	&& mv /tmp/my.cnf "$myCnf"
+
+RUN mkdir /docker-entrypoint-initdb.d
+
+COPY ./etc/mysql/docker-entrypoint.sh /usr/local/bin/
+RUN ln -s usr/local/bin/docker-entrypoint.sh / # backwards compat
+
+COPY ./src/initdb/* /docker-entrypoint-initdb.d/
+COPY ./src/app/ /usr/share/nginx/html/
+
+# RUN useradd -r -d /usr/share/nginx/html -G nginx www-data 
+#     && chgrp -R www-data /usr/share/nginx/html 
+#     && chmod -R g+w /usr/share/nginx/html
+#     && chmod g+s /usr/share/nginx/html
+
+# Common
+EXPOSE 80 443 3306
+
+VOLUME ["/var/log"]
+
+CMD ["/usr/bin/supervisord"]

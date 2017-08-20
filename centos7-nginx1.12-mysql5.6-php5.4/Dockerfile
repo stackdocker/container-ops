@@ -1,4 +1,6 @@
-# Inspired by https://github.com/doig-u/docker-lemp
+# Inspired by
+#   https://www.howtoforge.com/tutorial/install-nginx-with-php-and-mysql-lemp-stack-on-centos/2/
+#   https://github.com/doig-u/docker-lemp
 FROM centos:7
 LABEL maintainer="tangfeixiong <tangfx128@gmail.com>" \
       project="stackdocker" \
@@ -60,7 +62,7 @@ COPY ./etc/ /tmp/etc/
 RUN mkdir -p /etc/nginx/conf.d \
     && mkdir -p /etc/php-fpm.d \
     && mkdir -p /etc/supervisor/conf.d \
-    && cp -f /tmp/etc/nginx/nginx1.12.conf /etc/nginx/ \
+    && cp -f /tmp/etc/nginx/nginx1.12.conf /etc/nginx/nginx.conf \
     && cp -f /tmp/etc/nginx/default1.12.conf /etc/nginx/conf.d/default.conf \
     && cp -f /tmp/etc/php/php5.4.ini /etc/php.ini \
     && cp -f /tmp/etc/php/php-fpm5.4.conf /etc/php-fpm.conf \

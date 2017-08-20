@@ -1,0 +1,830 @@
+[root@666dd6cbfe02 /]# yum list | grep ^ca-certificates
+ca-certificates.noarch                   2017.2.14-70.1.el7_3            @Updates
+
+[root@666dd6cbfe02 /]# yum install -y epel-release
+Loaded plugins: fastestmirror, ovl
+Loading mirror speeds from cached hostfile
+ * base: ftp.riken.jp
+ * extras: ftp.riken.jp
+ * updates: ftp.riken.jp
+Resolving Dependencies
+--> Running transaction check
+---> Package epel-release.noarch 0:7-9 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+=============================================================================================================================================
+ Package                               Arch                            Version                         Repository                       Size
+=============================================================================================================================================
+Installing:
+ epel-release                          noarch                          7-9                             extras                           14 k
+
+Transaction Summary
+=============================================================================================================================================
+Install  1 Package
+
+Total download size: 14 k
+Installed size: 24 k
+Downloading packages:
+warning: /var/cache/yum/x86_64/7/extras/packages/epel-release-7-9.noarch.rpm: Header V3 RSA/SHA256 Signature, key ID f4a80eb5: NOKEY-:-- ETA 
+Public key for epel-release-7-9.noarch.rpm is not installed
+epel-release-7-9.noarch.rpm                                                                                           |  14 kB  00:00:00     
+Retrieving key from file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+Importing GPG key 0xF4A80EB5:
+ Userid     : "CentOS-7 Key (CentOS 7 Official Signing Key) <security@centos.org>"
+ Fingerprint: 6341 ab27 53d7 8a78 a7c2 7bb1 24c6 a8a7 f4a8 0eb5
+ Package    : centos-release-7-3.1611.el7.centos.x86_64 (@CentOS)
+ From       : /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : epel-release-7-9.noarch                                                                                                   1/1 
+  Verifying  : epel-release-7-9.noarch                                                                                                   1/1 
+
+Installed:
+  epel-release.noarch 0:7-9                                                                                                                  
+
+Complete!
+[root@666dd6cbfe02 /]# yum list | grep nginx
+collectd-nginx.x86_64                    5.7.1-2.el7                     epel   
+munin-nginx.noarch                       2.0.33-1.el7                    epel   
+nextcloud-nginx.noarch                   10.0.4-2.el7                    epel   
+nginx.x86_64                             1:1.10.2-1.el7                  epel   
+nginx-all-modules.noarch                 1:1.10.2-1.el7                  epel   
+nginx-filesystem.noarch                  1:1.10.2-1.el7                  epel   
+nginx-mod-http-geoip.x86_64              1:1.10.2-1.el7                  epel   
+nginx-mod-http-image-filter.x86_64       1:1.10.2-1.el7                  epel   
+nginx-mod-http-perl.x86_64               1:1.10.2-1.el7                  epel   
+nginx-mod-http-xslt-filter.x86_64        1:1.10.2-1.el7                  epel   
+nginx-mod-mail.x86_64                    1:1.10.2-1.el7                  epel   
+nginx-mod-stream.x86_64                  1:1.10.2-1.el7                  epel   
+owncloud-nginx.noarch                    9.1.5-1.el7                     epel   
+pcp-pmda-nginx.x86_64                    3.11.3-4.el7                    base   
+python2-certbot-nginx.noarch             0.14.1-1.el7                    epel   
+
+
+[root@666dd6cbfe02 /]# curl -jkSL https://dev.mysql.com/get/mysql57-community-release-el7-9.noarch.rpm -O && rpm -ivh mysql57-community-release-el7-9.noarch.rpm
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0
+100  9224  100  9224    0     0   4353      0  0:00:02  0:00:02 --:--:--  4353
+warning: mysql57-community-release-el7-9.noarch.rpm: Header V3 DSA/SHA1 Signature, key ID 5072e1f5: NOKEY
+Preparing...                          ################################# [100%]
+Updating / installing...
+   1:mysql57-community-release-el7-9  ################################# [100%]
+
+[root@666dd6cbfe02 /]# yum list | grep ^mysql
+mysql57-community-release.noarch         el7-9                           installed
+mysql++.x86_64                           3.1.0-12.el7                    epel   
+mysql++-devel.x86_64                     3.1.0-12.el7                    epel   
+mysql++-manuals.x86_64                   3.1.0-12.el7                    epel   
+mysql-community-client.i686              5.7.19-1.el7                    mysql57-community
+mysql-community-client.x86_64            5.7.19-1.el7                    mysql57-community
+mysql-community-common.i686              5.7.19-1.el7                    mysql57-community
+mysql-community-common.x86_64            5.7.19-1.el7                    mysql57-community
+mysql-community-devel.i686               5.7.19-1.el7                    mysql57-community
+mysql-community-devel.x86_64             5.7.19-1.el7                    mysql57-community
+mysql-community-embedded.i686            5.7.19-1.el7                    mysql57-community
+mysql-community-embedded.x86_64          5.7.19-1.el7                    mysql57-community
+mysql-community-embedded-compat.i686     5.7.19-1.el7                    mysql57-community
+mysql-community-embedded-compat.x86_64   5.7.19-1.el7                    mysql57-community
+mysql-community-embedded-devel.i686      5.7.19-1.el7                    mysql57-community
+mysql-community-embedded-devel.x86_64    5.7.19-1.el7                    mysql57-community
+mysql-community-libs.i686                5.7.19-1.el7                    mysql57-community
+mysql-community-libs.x86_64              5.7.19-1.el7                    mysql57-community
+mysql-community-libs-compat.i686         5.7.19-1.el7                    mysql57-community
+mysql-community-libs-compat.x86_64       5.7.19-1.el7                    mysql57-community
+mysql-community-release.noarch           el7-7                           mysql57-community
+mysql-community-server.x86_64            5.7.19-1.el7                    mysql57-community
+mysql-community-test.x86_64              5.7.19-1.el7                    mysql57-community
+mysql-connector-java.noarch              1:5.1.25-3.el7                  base   
+mysql-connector-odbc.x86_64              5.3.9-1.el7                     mysql-connectors-community
+mysql-connector-odbc-debuginfo.x86_64    5.3.9-1.el7                     mysql-connectors-community
+mysql-connector-odbc-setup.x86_64        5.3.9-1.el7                     mysql-connectors-community
+mysql-connector-python.noarch            2.0.4-1.el7                     mysql-connectors-community
+mysql-connector-python.x86_64            2.1.7-1.el7                     mysql-connectors-community
+mysql-connector-python-cext.x86_64       2.1.7-1.el7                     mysql-connectors-community
+mysql-connector-python-debuginfo.x86_64  2.1.7-1.el7                     mysql-connectors-community
+mysql-mmm.noarch                         2.2.1-14.el7                    epel   
+mysql-mmm-agent.noarch                   2.2.1-14.el7                    epel   
+mysql-mmm-monitor.noarch                 2.2.1-14.el7                    epel   
+mysql-mmm-tools.noarch                   2.2.1-14.el7                    epel   
+mysql-proxy.x86_64                       0.8.5-2.el7                     epel   
+mysql-proxy-devel.x86_64                 0.8.5-2.el7                     epel   
+mysql-ref-manual-5.5-en-html-chapter.noarch
+mysql-ref-manual-5.5-en-pdf.noarch       1-20170320                      mysql57-community
+mysql-ref-manual-5.7-en-html-chapter.noarch
+mysql-ref-manual-5.7-en-pdf.noarch       1-20170624                      mysql57-community
+mysql-router.x86_64                      2.1.4-1.el7                     mysql-tools-community
+mysql-router-debuginfo.x86_64            2.1.4-1.el7                     mysql-tools-community
+mysql-shell.x86_64                       1.0.10-1.el7                    mysql-tools-community
+mysql-shell-debuginfo.x86_64             1.0.10-1.el7                    mysql-tools-community
+mysql-utilities.noarch                   1.6.5-1.el7                     mysql-tools-community
+mysql-utilities-extra.noarch             1.5.6-1.el7                     mysql-tools-community
+mysql-workbench-community.x86_64         6.3.9-1.el7                     mysql-tools-community
+mysql-workbench-community-debuginfo.x86_64
+mysql57-community-release.noarch         el7-10                          mysql57-community
+mysqlreport.noarch                       3.5-11.el7                      epel   
+mysqltuner.noarch                        1.6.0-1.el7                     epel   
+
+
+
+[root@de888846ad53 /]# yum list | grep ^php.*
+php.x86_64                               5.4.16-42.el7                  base    
+php-bcmath.x86_64                        5.4.16-42.el7                  base    
+php-cli.x86_64                           5.4.16-42.el7                  base    
+php-common.x86_64                        5.4.16-42.el7                  base    
+php-dba.x86_64                           5.4.16-42.el7                  base    
+php-devel.x86_64                         5.4.16-42.el7                  base    
+php-embedded.x86_64                      5.4.16-42.el7                  base    
+php-enchant.x86_64                       5.4.16-42.el7                  base    
+php-fpm.x86_64                           5.4.16-42.el7                  base    
+php-gd.x86_64                            5.4.16-42.el7                  base    
+php-intl.x86_64                          5.4.16-42.el7                  base    
+php-ldap.x86_64                          5.4.16-42.el7                  base    
+php-mbstring.x86_64                      5.4.16-42.el7                  base    
+php-mysql.x86_64                         5.4.16-42.el7                  base    
+php-mysqlnd.x86_64                       5.4.16-42.el7                  base    
+php-odbc.x86_64                          5.4.16-42.el7                  base    
+php-pdo.x86_64                           5.4.16-42.el7                  base    
+php-pear.noarch                          1:1.9.4-21.el7                 base    
+php-pecl-memcache.x86_64                 3.0.8-4.el7                    base    
+php-pgsql.x86_64                         5.4.16-42.el7                  base    
+php-process.x86_64                       5.4.16-42.el7                  base    
+php-pspell.x86_64                        5.4.16-42.el7                  base    
+php-recode.x86_64                        5.4.16-42.el7                  base    
+php-snmp.x86_64                          5.4.16-42.el7                  base    
+php-soap.x86_64                          5.4.16-42.el7                  base    
+php-xml.x86_64                           5.4.16-42.el7                  base    
+php-xmlrpc.x86_64                        5.4.16-42.el7                  base    
+
+[root@666dd6cbfe02 /]# yum install -y php-pecl-memcache
+Loaded plugins: fastestmirror, ovl
+Loading mirror speeds from cached hostfile
+ * base: ftp.riken.jp
+ * epel: ftp.riken.jp
+ * extras: ftp.riken.jp
+ * updates: ftp.riken.jp
+Resolving Dependencies
+--> Running transaction check
+---> Package php-pecl-memcache.x86_64 0:3.0.8-4.el7 will be installed
+--> Processing Dependency: /usr/bin/pecl for package: php-pecl-memcache-3.0.8-4.el7.x86_64
+--> Processing Dependency: /usr/bin/pecl for package: php-pecl-memcache-3.0.8-4.el7.x86_64
+--> Running transaction check
+---> Package php-pear.noarch 1:1.9.4-21.el7 will be installed
+--> Processing Dependency: php-xml for package: 1:php-pear-1.9.4-21.el7.noarch
+--> Processing Dependency: php-posix for package: 1:php-pear-1.9.4-21.el7.noarch
+--> Running transaction check
+---> Package php-process.x86_64 0:5.4.16-42.el7 will be installed
+---> Package php-xml.x86_64 0:5.4.16-42.el7 will be installed
+--> Processing Dependency: libxslt.so.1(LIBXML2_1.0.24)(64bit) for package: php-xml-5.4.16-42.el7.x86_64
+--> Processing Dependency: libxslt.so.1(LIBXML2_1.0.22)(64bit) for package: php-xml-5.4.16-42.el7.x86_64
+--> Processing Dependency: libxslt.so.1(LIBXML2_1.0.18)(64bit) for package: php-xml-5.4.16-42.el7.x86_64
+--> Processing Dependency: libxslt.so.1(LIBXML2_1.0.13)(64bit) for package: php-xml-5.4.16-42.el7.x86_64
+--> Processing Dependency: libxslt.so.1(LIBXML2_1.0.11)(64bit) for package: php-xml-5.4.16-42.el7.x86_64
+--> Processing Dependency: libxslt.so.1()(64bit) for package: php-xml-5.4.16-42.el7.x86_64
+--> Processing Dependency: libexslt.so.0()(64bit) for package: php-xml-5.4.16-42.el7.x86_64
+--> Running transaction check
+---> Package libxslt.x86_64 0:1.1.28-5.el7 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+=============================================================================================================================================
+ Package                                 Arch                         Version                               Repository                  Size
+=============================================================================================================================================
+Installing:
+ php-pecl-memcache                       x86_64                       3.0.8-4.el7                           base                        67 k
+Installing for dependencies:
+ libxslt                                 x86_64                       1.1.28-5.el7                          base                       242 k
+ php-pear                                noarch                       1:1.9.4-21.el7                        base                       357 k
+ php-process                             x86_64                       5.4.16-42.el7                         base                        55 k
+ php-xml                                 x86_64                       5.4.16-42.el7                         base                       125 k
+
+Transaction Summary
+=============================================================================================================================================
+Install  1 Package (+4 Dependent packages)
+
+Total download size: 846 k
+Installed size: 3.2 M
+Downloading packages:
+(1/5): php-process-5.4.16-42.el7.x86_64.rpm                                                                           |  55 kB  00:00:00     
+(2/5): php-pecl-memcache-3.0.8-4.el7.x86_64.rpm                                                                       |  67 kB  00:00:01     
+(3/5): php-pear-1.9.4-21.el7.noarch.rpm                                                                               | 357 kB  00:00:01     
+(4/5): php-xml-5.4.16-42.el7.x86_64.rpm                                                                               | 125 kB  00:00:00     
+(5/5): libxslt-1.1.28-5.el7.x86_64.rpm                                                                                | 242 kB  00:00:02     
+---------------------------------------------------------------------------------------------------------------------------------------------
+Total                                                                                                        400 kB/s | 846 kB  00:00:02     
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : php-process-5.4.16-42.el7.x86_64                                                                                          1/5 
+  Installing : libxslt-1.1.28-5.el7.x86_64                                                                                               2/5 
+  Installing : php-xml-5.4.16-42.el7.x86_64                                                                                              3/5 
+  Installing : 1:php-pear-1.9.4-21.el7.noarch                                                                                            4/5 
+  Installing : php-pecl-memcache-3.0.8-4.el7.x86_64                                                                                      5/5 
+  Verifying  : php-xml-5.4.16-42.el7.x86_64                                                                                              1/5 
+  Verifying  : libxslt-1.1.28-5.el7.x86_64                                                                                               2/5 
+  Verifying  : php-process-5.4.16-42.el7.x86_64                                                                                          3/5 
+  Verifying  : php-pecl-memcache-3.0.8-4.el7.x86_64                                                                                      4/5 
+  Verifying  : 1:php-pear-1.9.4-21.el7.noarch                                                                                            5/5 
+
+Installed:
+  php-pecl-memcache.x86_64 0:3.0.8-4.el7                                                                                                     
+
+Dependency Installed:
+  libxslt.x86_64 0:1.1.28-5.el7    php-pear.noarch 1:1.9.4-21.el7    php-process.x86_64 0:5.4.16-42.el7    php-xml.x86_64 0:5.4.16-42.el7   
+
+Complete!
+
+
+[root@666dd6cbfe02 /]# yum install -y php-devel                                      
+Loaded plugins: fastestmirror, ovl
+Loading mirror speeds from cached hostfile
+ * base: ftp.riken.jp
+ * epel: ftp.riken.jp
+ * extras: ftp.riken.jp
+ * updates: ftp.riken.jp
+Resolving Dependencies
+--> Running transaction check
+---> Package php-devel.x86_64 0:5.4.16-42.el7 will be installed
+--> Processing Dependency: pcre-devel(x86-64) for package: php-devel-5.4.16-42.el7.x86_64
+--> Processing Dependency: automake for package: php-devel-5.4.16-42.el7.x86_64
+--> Processing Dependency: autoconf for package: php-devel-5.4.16-42.el7.x86_64
+--> Running transaction check
+---> Package autoconf.noarch 0:2.69-11.el7 will be installed
+--> Processing Dependency: perl >= 5.006 for package: autoconf-2.69-11.el7.noarch
+--> Processing Dependency: m4 >= 1.4.14 for package: autoconf-2.69-11.el7.noarch
+--> Processing Dependency: perl(warnings) for package: autoconf-2.69-11.el7.noarch
+--> Processing Dependency: perl(vars) for package: autoconf-2.69-11.el7.noarch
+--> Processing Dependency: perl(strict) for package: autoconf-2.69-11.el7.noarch
+--> Processing Dependency: perl(constant) for package: autoconf-2.69-11.el7.noarch
+--> Processing Dependency: perl(Text::ParseWords) for package: autoconf-2.69-11.el7.noarch
+--> Processing Dependency: perl(POSIX) for package: autoconf-2.69-11.el7.noarch
+--> Processing Dependency: perl(IO::File) for package: autoconf-2.69-11.el7.noarch
+--> Processing Dependency: perl(Getopt::Long) for package: autoconf-2.69-11.el7.noarch
+--> Processing Dependency: perl(File::stat) for package: autoconf-2.69-11.el7.noarch
+--> Processing Dependency: perl(File::Spec) for package: autoconf-2.69-11.el7.noarch
+--> Processing Dependency: perl(File::Path) for package: autoconf-2.69-11.el7.noarch
+--> Processing Dependency: perl(File::Find) for package: autoconf-2.69-11.el7.noarch
+--> Processing Dependency: perl(File::Copy) for package: autoconf-2.69-11.el7.noarch
+--> Processing Dependency: perl(File::Compare) for package: autoconf-2.69-11.el7.noarch
+--> Processing Dependency: perl(File::Basename) for package: autoconf-2.69-11.el7.noarch
+--> Processing Dependency: perl(Exporter) for package: autoconf-2.69-11.el7.noarch
+--> Processing Dependency: perl(Errno) for package: autoconf-2.69-11.el7.noarch
+--> Processing Dependency: perl(DynaLoader) for package: autoconf-2.69-11.el7.noarch
+--> Processing Dependency: perl(Data::Dumper) for package: autoconf-2.69-11.el7.noarch
+--> Processing Dependency: perl(Cwd) for package: autoconf-2.69-11.el7.noarch
+--> Processing Dependency: perl(Class::Struct) for package: autoconf-2.69-11.el7.noarch
+--> Processing Dependency: perl(Carp) for package: autoconf-2.69-11.el7.noarch
+--> Processing Dependency: /usr/bin/perl for package: autoconf-2.69-11.el7.noarch
+---> Package automake.noarch 0:1.13.4-3.el7 will be installed
+--> Processing Dependency: perl(threads) for package: automake-1.13.4-3.el7.noarch
+--> Processing Dependency: perl(Thread::Queue) for package: automake-1.13.4-3.el7.noarch
+--> Processing Dependency: perl(TAP::Parser) for package: automake-1.13.4-3.el7.noarch
+---> Package pcre-devel.x86_64 0:8.32-15.el7_2.1 will be installed
+--> Running transaction check
+---> Package m4.x86_64 0:1.4.16-10.el7 will be installed
+---> Package perl.x86_64 4:5.16.3-291.el7 will be installed
+--> Processing Dependency: perl-libs = 4:5.16.3-291.el7 for package: 4:perl-5.16.3-291.el7.x86_64
+--> Processing Dependency: perl(Socket) >= 1.3 for package: 4:perl-5.16.3-291.el7.x86_64
+--> Processing Dependency: perl(Scalar::Util) >= 1.10 for package: 4:perl-5.16.3-291.el7.x86_64
+--> Processing Dependency: perl-macros for package: 4:perl-5.16.3-291.el7.x86_64
+--> Processing Dependency: perl-libs for package: 4:perl-5.16.3-291.el7.x86_64
+--> Processing Dependency: perl(threads::shared) for package: 4:perl-5.16.3-291.el7.x86_64
+--> Processing Dependency: perl(Time::Local) for package: 4:perl-5.16.3-291.el7.x86_64
+--> Processing Dependency: perl(Time::HiRes) for package: 4:perl-5.16.3-291.el7.x86_64
+--> Processing Dependency: perl(Storable) for package: 4:perl-5.16.3-291.el7.x86_64
+--> Processing Dependency: perl(Socket) for package: 4:perl-5.16.3-291.el7.x86_64
+--> Processing Dependency: perl(Scalar::Util) for package: 4:perl-5.16.3-291.el7.x86_64
+--> Processing Dependency: perl(Pod::Simple::XHTML) for package: 4:perl-5.16.3-291.el7.x86_64
+--> Processing Dependency: perl(Pod::Simple::Search) for package: 4:perl-5.16.3-291.el7.x86_64
+--> Processing Dependency: perl(Filter::Util::Call) for package: 4:perl-5.16.3-291.el7.x86_64
+--> Processing Dependency: perl(File::Temp) for package: 4:perl-5.16.3-291.el7.x86_64
+--> Processing Dependency: libperl.so()(64bit) for package: 4:perl-5.16.3-291.el7.x86_64
+---> Package perl-Carp.noarch 0:1.26-244.el7 will be installed
+---> Package perl-Data-Dumper.x86_64 0:2.145-3.el7 will be installed
+---> Package perl-Exporter.noarch 0:5.68-3.el7 will be installed
+---> Package perl-File-Path.noarch 0:2.09-2.el7 will be installed
+---> Package perl-Getopt-Long.noarch 0:2.40-2.el7 will be installed
+--> Processing Dependency: perl(Pod::Usage) >= 1.14 for package: perl-Getopt-Long-2.40-2.el7.noarch
+---> Package perl-PathTools.x86_64 0:3.40-5.el7 will be installed
+---> Package perl-Test-Harness.noarch 0:3.28-3.el7 will be installed
+---> Package perl-Text-ParseWords.noarch 0:3.29-4.el7 will be installed
+---> Package perl-Thread-Queue.noarch 0:3.02-2.el7 will be installed
+---> Package perl-constant.noarch 0:1.27-2.el7 will be installed
+---> Package perl-threads.x86_64 0:1.87-4.el7 will be installed
+--> Running transaction check
+---> Package perl-File-Temp.noarch 0:0.23.01-3.el7 will be installed
+---> Package perl-Filter.x86_64 0:1.49-3.el7 will be installed
+---> Package perl-Pod-Simple.noarch 1:3.28-4.el7 will be installed
+--> Processing Dependency: perl(Pod::Escapes) >= 1.04 for package: 1:perl-Pod-Simple-3.28-4.el7.noarch
+--> Processing Dependency: perl(Encode) for package: 1:perl-Pod-Simple-3.28-4.el7.noarch
+---> Package perl-Pod-Usage.noarch 0:1.63-3.el7 will be installed
+--> Processing Dependency: perl(Pod::Text) >= 3.15 for package: perl-Pod-Usage-1.63-3.el7.noarch
+--> Processing Dependency: perl-Pod-Perldoc for package: perl-Pod-Usage-1.63-3.el7.noarch
+---> Package perl-Scalar-List-Utils.x86_64 0:1.27-248.el7 will be installed
+---> Package perl-Socket.x86_64 0:2.010-4.el7 will be installed
+---> Package perl-Storable.x86_64 0:2.45-3.el7 will be installed
+---> Package perl-Time-HiRes.x86_64 4:1.9725-3.el7 will be installed
+---> Package perl-Time-Local.noarch 0:1.2300-2.el7 will be installed
+---> Package perl-libs.x86_64 4:5.16.3-291.el7 will be installed
+---> Package perl-macros.x86_64 4:5.16.3-291.el7 will be installed
+---> Package perl-threads-shared.x86_64 0:1.43-6.el7 will be installed
+--> Running transaction check
+---> Package perl-Encode.x86_64 0:2.51-7.el7 will be installed
+---> Package perl-Pod-Escapes.noarch 1:1.04-291.el7 will be installed
+---> Package perl-Pod-Perldoc.noarch 0:3.20-4.el7 will be installed
+--> Processing Dependency: perl(parent) for package: perl-Pod-Perldoc-3.20-4.el7.noarch
+--> Processing Dependency: perl(HTTP::Tiny) for package: perl-Pod-Perldoc-3.20-4.el7.noarch
+--> Processing Dependency: groff-base for package: perl-Pod-Perldoc-3.20-4.el7.noarch
+---> Package perl-podlators.noarch 0:2.5.1-3.el7 will be installed
+--> Running transaction check
+---> Package groff-base.x86_64 0:1.22.2-8.el7 will be installed
+---> Package perl-HTTP-Tiny.noarch 0:0.033-3.el7 will be installed
+---> Package perl-parent.noarch 1:0.225-244.el7 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+=============================================================================================================================================
+ Package                                    Arch                       Version                                Repository                Size
+=============================================================================================================================================
+Installing:
+ php-devel                                  x86_64                     5.4.16-42.el7                          base                     601 k
+Installing for dependencies:
+ autoconf                                   noarch                     2.69-11.el7                            base                     701 k
+ automake                                   noarch                     1.13.4-3.el7                           base                     679 k
+ groff-base                                 x86_64                     1.22.2-8.el7                           base                     942 k
+ m4                                         x86_64                     1.4.16-10.el7                          base                     256 k
+ pcre-devel                                 x86_64                     8.32-15.el7_2.1                        base                     479 k
+ perl                                       x86_64                     4:5.16.3-291.el7                       base                     8.0 M
+ perl-Carp                                  noarch                     1.26-244.el7                           base                      19 k
+ perl-Data-Dumper                           x86_64                     2.145-3.el7                            base                      47 k
+ perl-Encode                                x86_64                     2.51-7.el7                             base                     1.5 M
+ perl-Exporter                              noarch                     5.68-3.el7                             base                      28 k
+ perl-File-Path                             noarch                     2.09-2.el7                             base                      26 k
+ perl-File-Temp                             noarch                     0.23.01-3.el7                          base                      56 k
+ perl-Filter                                x86_64                     1.49-3.el7                             base                      76 k
+ perl-Getopt-Long                           noarch                     2.40-2.el7                             base                      56 k
+ perl-HTTP-Tiny                             noarch                     0.033-3.el7                            base                      38 k
+ perl-PathTools                             x86_64                     3.40-5.el7                             base                      82 k
+ perl-Pod-Escapes                           noarch                     1:1.04-291.el7                         base                      51 k
+ perl-Pod-Perldoc                           noarch                     3.20-4.el7                             base                      87 k
+ perl-Pod-Simple                            noarch                     1:3.28-4.el7                           base                     216 k
+ perl-Pod-Usage                             noarch                     1.63-3.el7                             base                      27 k
+ perl-Scalar-List-Utils                     x86_64                     1.27-248.el7                           base                      36 k
+ perl-Socket                                x86_64                     2.010-4.el7                            base                      49 k
+ perl-Storable                              x86_64                     2.45-3.el7                             base                      77 k
+ perl-Test-Harness                          noarch                     3.28-3.el7                             base                     302 k
+ perl-Text-ParseWords                       noarch                     3.29-4.el7                             base                      14 k
+ perl-Thread-Queue                          noarch                     3.02-2.el7                             base                      17 k
+ perl-Time-HiRes                            x86_64                     4:1.9725-3.el7                         base                      45 k
+ perl-Time-Local                            noarch                     1.2300-2.el7                           base                      24 k
+ perl-constant                              noarch                     1.27-2.el7                             base                      19 k
+ perl-libs                                  x86_64                     4:5.16.3-291.el7                       base                     688 k
+ perl-macros                                x86_64                     4:5.16.3-291.el7                       base                      43 k
+ perl-parent                                noarch                     1:0.225-244.el7                        base                      12 k
+ perl-podlators                             noarch                     2.5.1-3.el7                            base                     112 k
+ perl-threads                               x86_64                     1.87-4.el7                             base                      49 k
+ perl-threads-shared                        x86_64                     1.43-6.el7                             base                      39 k
+
+Transaction Summary
+=============================================================================================================================================
+Install  1 Package (+35 Dependent packages)
+
+Total download size: 15 M
+Installed size: 50 M
+Downloading packages:
+(1/36): pcre-devel-8.32-15.el7_2.1.x86_64.rpm                                                                         | 479 kB  00:00:02     
+(2/36): automake-1.13.4-3.el7.noarch.rpm                                                                              | 679 kB  00:00:03     
+(3/36): m4-1.4.16-10.el7.x86_64.rpm                                                                                   | 256 kB  00:00:03     
+(4/36): perl-Carp-1.26-244.el7.noarch.rpm                                                                             |  19 kB  00:00:00     
+(5/36): groff-base-1.22.2-8.el7.x86_64.rpm                                                                            | 942 kB  00:00:04     
+(6/36): perl-Exporter-5.68-3.el7.noarch.rpm                                                                           |  28 kB  00:00:05     
+(7/36): perl-Data-Dumper-2.145-3.el7.x86_64.rpm                                                                       |  47 kB  00:00:06     
+(8/36): perl-File-Path-2.09-2.el7.noarch.rpm                                                                          |  26 kB  00:00:00     
+(9/36): perl-File-Temp-0.23.01-3.el7.noarch.rpm                                                                       |  56 kB  00:00:00     
+(10/36): perl-Filter-1.49-3.el7.x86_64.rpm                                                                            |  76 kB  00:00:00     
+(11/36): perl-Getopt-Long-2.40-2.el7.noarch.rpm                                                                       |  56 kB  00:00:00     
+(12/36): perl-HTTP-Tiny-0.033-3.el7.noarch.rpm                                                                        |  38 kB  00:00:00     
+(13/36): perl-PathTools-3.40-5.el7.x86_64.rpm                                                                         |  82 kB  00:00:00     
+(14/36): autoconf-2.69-11.el7.noarch.rpm                                                                              | 701 kB  00:00:12     
+(15/36): perl-Pod-Escapes-1.04-291.el7.noarch.rpm                                                                     |  51 kB  00:00:01     
+(16/36): perl-Pod-Usage-1.63-3.el7.noarch.rpm                                                                         |  27 kB  00:00:00     
+(17/36): perl-Pod-Perldoc-3.20-4.el7.noarch.rpm                                                                       |  87 kB  00:00:01     
+(18/36): perl-Scalar-List-Utils-1.27-248.el7.x86_64.rpm                                                               |  36 kB  00:00:01     
+(19/36): perl-Socket-2.010-4.el7.x86_64.rpm                                                                           |  49 kB  00:00:02     
+(20/36): perl-Storable-2.45-3.el7.x86_64.rpm                                                                          |  77 kB  00:00:01     
+(21/36): perl-Text-ParseWords-3.29-4.el7.noarch.rpm                                                                   |  14 kB  00:00:00     
+(22/36): perl-Pod-Simple-3.28-4.el7.noarch.rpm                                                                        | 216 kB  00:00:04     
+(23/36): perl-Thread-Queue-3.02-2.el7.noarch.rpm                                                                      |  17 kB  00:00:00     
+(24/36): perl-Time-HiRes-1.9725-3.el7.x86_64.rpm                                                                      |  45 kB  00:00:00     
+(25/36): perl-Encode-2.51-7.el7.x86_64.rpm                                                                            | 1.5 MB  00:00:13     
+(26/36): perl-Time-Local-1.2300-2.el7.noarch.rpm                                                                      |  24 kB  00:00:00     
+(27/36): perl-Test-Harness-3.28-3.el7.noarch.rpm                                                                      | 302 kB  00:00:02     
+(28/36): perl-constant-1.27-2.el7.noarch.rpm                                                                          |  19 kB  00:00:00     
+(29/36): perl-parent-0.225-244.el7.noarch.rpm                                                                         |  12 kB  00:00:00     
+(30/36): perl-threads-1.87-4.el7.x86_64.rpm                                                                           |  49 kB  00:00:00     
+(31/36): perl-threads-shared-1.43-6.el7.x86_64.rpm                                                                    |  39 kB  00:00:00     
+(32/36): perl-macros-5.16.3-291.el7.x86_64.rpm                                                                        |  43 kB  00:00:00     
+(33/36): perl-podlators-2.5.1-3.el7.noarch.rpm                                                                        | 112 kB  00:00:00     
+(34/36): php-devel-5.4.16-42.el7.x86_64.rpm                                                                           | 601 kB  00:00:02     
+(35/36): perl-libs-5.16.3-291.el7.x86_64.rpm                                                                          | 688 kB  00:00:05     
+(36/36): perl-5.16.3-291.el7.x86_64.rpm                                                                               | 8.0 MB  00:00:38     
+---------------------------------------------------------------------------------------------------------------------------------------------
+Total                                                                                                        378 kB/s |  15 MB  00:00:41     
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : groff-base-1.22.2-8.el7.x86_64                                                                                           1/36 
+  Installing : 1:perl-parent-0.225-244.el7.noarch                                                                                       2/36 
+  Installing : perl-HTTP-Tiny-0.033-3.el7.noarch                                                                                        3/36 
+  Installing : perl-podlators-2.5.1-3.el7.noarch                                                                                        4/36 
+  Installing : perl-Pod-Perldoc-3.20-4.el7.noarch                                                                                       5/36 
+  Installing : 1:perl-Pod-Escapes-1.04-291.el7.noarch                                                                                   6/36 
+  Installing : perl-Encode-2.51-7.el7.x86_64                                                                                            7/36 
+  Installing : perl-Text-ParseWords-3.29-4.el7.noarch                                                                                   8/36 
+  Installing : perl-Pod-Usage-1.63-3.el7.noarch                                                                                         9/36 
+  Installing : 4:perl-Time-HiRes-1.9725-3.el7.x86_64                                                                                   10/36 
+  Installing : perl-Exporter-5.68-3.el7.noarch                                                                                         11/36 
+  Installing : perl-constant-1.27-2.el7.noarch                                                                                         12/36 
+  Installing : perl-Time-Local-1.2300-2.el7.noarch                                                                                     13/36 
+  Installing : perl-Socket-2.010-4.el7.x86_64                                                                                          14/36 
+  Installing : perl-Carp-1.26-244.el7.noarch                                                                                           15/36 
+  Installing : perl-Storable-2.45-3.el7.x86_64                                                                                         16/36 
+  Installing : perl-PathTools-3.40-5.el7.x86_64                                                                                        17/36 
+  Installing : perl-Scalar-List-Utils-1.27-248.el7.x86_64                                                                              18/36 
+  Installing : 4:perl-libs-5.16.3-291.el7.x86_64                                                                                       19/36 
+  Installing : 4:perl-macros-5.16.3-291.el7.x86_64                                                                                     20/36 
+  Installing : 1:perl-Pod-Simple-3.28-4.el7.noarch                                                                                     21/36 
+  Installing : perl-File-Temp-0.23.01-3.el7.noarch                                                                                     22/36 
+  Installing : perl-File-Path-2.09-2.el7.noarch                                                                                        23/36 
+  Installing : perl-threads-shared-1.43-6.el7.x86_64                                                                                   24/36 
+  Installing : perl-threads-1.87-4.el7.x86_64                                                                                          25/36 
+  Installing : perl-Filter-1.49-3.el7.x86_64                                                                                           26/36 
+  Installing : perl-Getopt-Long-2.40-2.el7.noarch                                                                                      27/36 
+  Installing : 4:perl-5.16.3-291.el7.x86_64                                                                                            28/36 
+  Installing : perl-Test-Harness-3.28-3.el7.noarch                                                                                     29/36 
+  Installing : perl-Thread-Queue-3.02-2.el7.noarch                                                                                     30/36 
+  Installing : perl-Data-Dumper-2.145-3.el7.x86_64                                                                                     31/36 
+  Installing : m4-1.4.16-10.el7.x86_64                                                                                                 32/36 
+  Installing : autoconf-2.69-11.el7.noarch                                                                                             33/36 
+install-info: No such file or directory for /usr/share/info/autoconf.info
+  Installing : automake-1.13.4-3.el7.noarch                                                                                            34/36 
+install-info: No such file or directory for /usr/share/info/automake.info.gz
+  Installing : pcre-devel-8.32-15.el7_2.1.x86_64                                                                                       35/36 
+  Installing : php-devel-5.4.16-42.el7.x86_64                                                                                          36/36 
+  Verifying  : perl-HTTP-Tiny-0.033-3.el7.noarch                                                                                        1/36 
+  Verifying  : perl-threads-shared-1.43-6.el7.x86_64                                                                                    2/36 
+  Verifying  : 4:perl-Time-HiRes-1.9725-3.el7.x86_64                                                                                    3/36 
+  Verifying  : perl-Exporter-5.68-3.el7.noarch                                                                                          4/36 
+  Verifying  : perl-constant-1.27-2.el7.noarch                                                                                          5/36 
+  Verifying  : perl-PathTools-3.40-5.el7.x86_64                                                                                         6/36 
+  Verifying  : pcre-devel-8.32-15.el7_2.1.x86_64                                                                                        7/36 
+  Verifying  : automake-1.13.4-3.el7.noarch                                                                                             8/36 
+  Verifying  : m4-1.4.16-10.el7.x86_64                                                                                                  9/36 
+  Verifying  : 1:perl-Pod-Escapes-1.04-291.el7.noarch                                                                                  10/36 
+  Verifying  : 1:perl-parent-0.225-244.el7.noarch                                                                                      11/36 
+  Verifying  : perl-Test-Harness-3.28-3.el7.noarch                                                                                     12/36 
+  Verifying  : groff-base-1.22.2-8.el7.x86_64                                                                                          13/36 
+  Verifying  : perl-Thread-Queue-3.02-2.el7.noarch                                                                                     14/36 
+  Verifying  : perl-File-Temp-0.23.01-3.el7.noarch                                                                                     15/36 
+  Verifying  : 1:perl-Pod-Simple-3.28-4.el7.noarch                                                                                     16/36 
+  Verifying  : perl-Time-Local-1.2300-2.el7.noarch                                                                                     17/36 
+  Verifying  : perl-Pod-Perldoc-3.20-4.el7.noarch                                                                                      18/36 
+  Verifying  : perl-Socket-2.010-4.el7.x86_64                                                                                          19/36 
+  Verifying  : perl-Carp-1.26-244.el7.noarch                                                                                           20/36 
+  Verifying  : perl-Data-Dumper-2.145-3.el7.x86_64                                                                                     21/36 
+  Verifying  : perl-Storable-2.45-3.el7.x86_64                                                                                         22/36 
+  Verifying  : perl-Scalar-List-Utils-1.27-248.el7.x86_64                                                                              23/36 
+  Verifying  : 4:perl-libs-5.16.3-291.el7.x86_64                                                                                       24/36 
+  Verifying  : 4:perl-macros-5.16.3-291.el7.x86_64                                                                                     25/36 
+  Verifying  : perl-Pod-Usage-1.63-3.el7.noarch                                                                                        26/36 
+  Verifying  : perl-Encode-2.51-7.el7.x86_64                                                                                           27/36 
+  Verifying  : perl-podlators-2.5.1-3.el7.noarch                                                                                       28/36 
+  Verifying  : perl-Getopt-Long-2.40-2.el7.noarch                                                                                      29/36 
+  Verifying  : autoconf-2.69-11.el7.noarch                                                                                             30/36 
+  Verifying  : perl-File-Path-2.09-2.el7.noarch                                                                                        31/36 
+  Verifying  : 4:perl-5.16.3-291.el7.x86_64                                                                                            32/36 
+  Verifying  : perl-threads-1.87-4.el7.x86_64                                                                                          33/36 
+  Verifying  : perl-Filter-1.49-3.el7.x86_64                                                                                           34/36 
+  Verifying  : perl-Text-ParseWords-3.29-4.el7.noarch                                                                                  35/36 
+  Verifying  : php-devel-5.4.16-42.el7.x86_64                                                                                          36/36 
+
+Installed:
+  php-devel.x86_64 0:5.4.16-42.el7                                                                                                           
+
+Dependency Installed:
+  autoconf.noarch 0:2.69-11.el7                automake.noarch 0:1.13.4-3.el7              groff-base.x86_64 0:1.22.2-8.el7                
+  m4.x86_64 0:1.4.16-10.el7                    pcre-devel.x86_64 0:8.32-15.el7_2.1         perl.x86_64 4:5.16.3-291.el7                    
+  perl-Carp.noarch 0:1.26-244.el7              perl-Data-Dumper.x86_64 0:2.145-3.el7       perl-Encode.x86_64 0:2.51-7.el7                 
+  perl-Exporter.noarch 0:5.68-3.el7            perl-File-Path.noarch 0:2.09-2.el7          perl-File-Temp.noarch 0:0.23.01-3.el7           
+  perl-Filter.x86_64 0:1.49-3.el7              perl-Getopt-Long.noarch 0:2.40-2.el7        perl-HTTP-Tiny.noarch 0:0.033-3.el7             
+  perl-PathTools.x86_64 0:3.40-5.el7           perl-Pod-Escapes.noarch 1:1.04-291.el7      perl-Pod-Perldoc.noarch 0:3.20-4.el7            
+  perl-Pod-Simple.noarch 1:3.28-4.el7          perl-Pod-Usage.noarch 0:1.63-3.el7          perl-Scalar-List-Utils.x86_64 0:1.27-248.el7    
+  perl-Socket.x86_64 0:2.010-4.el7             perl-Storable.x86_64 0:2.45-3.el7           perl-Test-Harness.noarch 0:3.28-3.el7           
+  perl-Text-ParseWords.noarch 0:3.29-4.el7     perl-Thread-Queue.noarch 0:3.02-2.el7       perl-Time-HiRes.x86_64 4:1.9725-3.el7           
+  perl-Time-Local.noarch 0:1.2300-2.el7        perl-constant.noarch 0:1.27-2.el7           perl-libs.x86_64 4:5.16.3-291.el7               
+  perl-macros.x86_64 4:5.16.3-291.el7          perl-parent.noarch 1:0.225-244.el7          perl-podlators.noarch 0:2.5.1-3.el7             
+  perl-threads.x86_64 0:1.87-4.el7             perl-threads-shared.x86_64 0:1.43-6.el7    
+
+Complete!
+
+
+[root@666dd6cbfe02 /]# printf "\n" | pecl install apc
+WARNING: channel "pecl.php.net" has updated its protocols, use "pecl channel-update pecl.php.net" to update
+downloading APC-3.1.13.tgz ...
+Starting to download APC-3.1.13.tgz (171,591 bytes)
+.....................................done: 171,591 bytes
+55 source files, building
+running: phpize
+Configuring for:
+PHP Api Version:         20100412
+Zend Module Api No:      20100525
+Zend Extension Api No:   220100525
+Enable internal debugging in APC [no] : Enable per request file info about files used from the APC cache [no] : Enable spin locks (EXPERIMENTAL) [no] : Enable memory protection (EXPERIMENTAL) [no] : Enable pthread mutexes (default) [no] : Enable pthread read/write locks (EXPERIMENTAL) [yes] : building in /var/tmp/pear-build-defaultuserzMcuAT/APC-3.1.13
+running: /var/tmp/APC/configure --enable-apc-debug=no --enable-apc-filehits=no --enable-apc-spinlocks=no --enable-apc-memprotect=no --enable-apc-pthreadmutex=no --enable-apc-pthreadrwlocks=yes
+checking for grep that handles long lines and -e... /usr/bin/grep
+checking for egrep... /usr/bin/grep -E
+checking for a sed that does not truncate output... /usr/bin/sed
+checking for cc... no
+checking for gcc... no
+configure: error: in `/var/tmp/pear-build-defaultuserzMcuAT/APC-3.1.13':
+configure: error: no acceptable C compiler found in $PATH
+See `config.log' for more details
+ERROR: `/var/tmp/APC/configure --enable-apc-debug=no --enable-apc-filehits=no --enable-apc-spinlocks=no --enable-apc-memprotect=no --enable-apc-pthreadmutex=no --enable-apc-pthreadrwlocks=yes' failed
+
+[root@666dd6cbfe02 /]# yum -y groupinstall -q 'Development Tools'
+There is no installed groups file.
+Maybe run: yum groups mark convert (see man yum)
+Delta RPMs disabled because /usr/bin/applydeltarpm not installed.
+http://ftp.tsukuba.wide.ad.jp/Linux/centos/7.3.1611/os/x86_64/Packages/gdb-7.6.1-94.el7.x86_64.rpm: [Errno 14] curl#18 - "transfer closed with 1666875 bytes remaining to read"
+Trying other mirror.
+install-info: No such file or directory for /usr/share/info/gettext.info.gz
+install-info: No such file or directory for /usr/share/info/autosprintf.info
+install-info: No such file or directory for /usr/share/info/nettle.info
+install-info: No such file or directory for /usr/share/info/libtool.info.gz
+
+[root@666dd6cbfe02 /]# printf "\n" | pecl install apc
+WARNING: channel "pecl.php.net" has updated its protocols, use "pecl channel-update pecl.php.net" to update
+downloading APC-3.1.13.tgz ...
+Starting to download APC-3.1.13.tgz (171,591 bytes)
+.....................................done: 171,591 bytes
+55 source files, building
+running: phpize
+Configuring for:
+PHP Api Version:         20100412
+Zend Module Api No:      20100525
+Zend Extension Api No:   220100525
+Enable internal debugging in APC [no] : Enable per request file info about files used from the APC cache [no] : Enable spin locks (EXPERIMENTAL) [no] : Enable memory protection (EXPERIMENTAL) [no] : Enable pthread mutexes (default) [no] : Enable pthread read/write locks (EXPERIMENTAL) [yes] : building in /var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13
+running: /var/tmp/APC/configure --enable-apc-debug=no --enable-apc-filehits=no --enable-apc-spinlocks=no --enable-apc-memprotect=no --enable-apc-pthreadmutex=no --enable-apc-pthreadrwlocks=yes
+checking for grep that handles long lines and -e... /usr/bin/grep
+checking for egrep... /usr/bin/grep -E
+checking for a sed that does not truncate output... /usr/bin/sed
+checking for cc... cc
+checking whether the C compiler works... yes
+checking for C compiler default output file name... a.out
+checking for suffix of executables...
+checking whether we are cross compiling... no
+checking for suffix of object files... o
+checking whether we are using the GNU C compiler... yes
+checking whether cc accepts -g... yes
+checking for cc option to accept ISO C89... none needed
+checking how to run the C preprocessor... cc -E
+checking for icc... no
+checking for suncc... no
+checking whether cc understands -c and -o together... yes
+checking for system library directory... lib
+checking if compiler supports -R... no
+checking if compiler supports -Wl,-rpath,... yes
+checking build system type... x86_64-unknown-linux-gnu
+checking host system type... x86_64-unknown-linux-gnu
+checking target system type... x86_64-unknown-linux-gnu
+checking for PHP prefix... /usr
+checking for PHP includes... -I/usr/include/php -I/usr/include/php/main -I/usr/include/php/TSRM -I/usr/include/php/Zend -I/usr/include/php/ext -I/usr/include/php/ext/date/lib
+checking for PHP extension directory... /usr/lib64/php/modules
+checking for PHP installed headers prefix... /usr/include/php
+checking if debug is enabled... no
+checking if zts is enabled... no
+checking for re2c... no
+configure: WARNING: You will need re2c 0.13.4 or later if you want to regenerate PHP parsers.
+checking for gawk... gawk
+checking whether to enable APC support... yes, shared
+checking whether we should enable cache request file info... no
+checking whether we should use mmap... yes
+checking whether we should use semaphore locking instead of fcntl... no
+checking whether we should use pthread mutex locking... no
+checking whether we should use pthread read/write locking... yes
+pthread rwlocks are supported!
+checking whether the target compiler supports builtin atomics... yes
+checking whether we should use spin locks... no
+checking whether we should enable memory protection... no
+checking for zend_set_lookup_function_hook... no
+checking for sigaction... yes
+checking for union semun... no
+checking whether we should enable valgrind support... checking for ANSI C header files... yes
+checking for sys/types.h... yes
+checking for sys/stat.h... yes
+checking for stdlib.h... yes
+checking for string.h... yes
+checking for memory.h... yes
+checking for strings.h... yes
+checking for inttypes.h... yes
+checking for stdint.h... yes
+checking for unistd.h... yes
+yes
+checking valgrind/memcheck.h usability... no
+checking valgrind/memcheck.h presence... no
+checking for valgrind/memcheck.h... no
+checking for shm_open in -lrt... yes
+checking whether to include code coverage symbols... no
+checking how to print strings... printf
+checking for a sed that does not truncate output... (cached) /usr/bin/sed
+checking for fgrep... /usr/bin/grep -F
+checking for ld used by cc... /usr/bin/ld
+checking if the linker (/usr/bin/ld) is GNU ld... yes
+checking for BSD- or MS-compatible name lister (nm)... /usr/bin/nm -B
+checking the name lister (/usr/bin/nm -B) interface... BSD nm
+checking whether ln -s works... yes
+checking the maximum length of command line arguments... 1572864
+checking whether the shell understands some XSI constructs... yes
+checking whether the shell understands "+="... yes
+checking how to convert x86_64-unknown-linux-gnu file names to x86_64-unknown-linux-gnu format... func_convert_file_noop
+checking how to convert x86_64-unknown-linux-gnu file names to toolchain format... func_convert_file_noop
+checking for /usr/bin/ld option to reload object files... -r
+checking for objdump... objdump
+checking how to recognize dependent libraries... pass_all
+checking for dlltool... no
+checking how to associate runtime and link libraries... printf %s\n
+checking for ar... ar
+checking for archiver @FILE support... @
+checking for strip... strip
+checking for ranlib... ranlib
+checking for gawk... (cached) gawk
+checking command to parse /usr/bin/nm -B output from cc object... ok
+checking for sysroot... no
+checking for mt... no
+checking if : is a manifest tool... no
+checking for dlfcn.h... yes
+checking for objdir... .libs
+checking if cc supports -fno-rtti -fno-exceptions... no
+checking for cc option to produce PIC... -fPIC -DPIC
+checking if cc PIC flag -fPIC -DPIC works... yes
+checking if cc static flag -static works... no
+checking if cc supports -c -o file.o... yes
+checking if cc supports -c -o file.o... (cached) yes
+checking whether the cc linker (/usr/bin/ld -m elf_x86_64) supports shared libraries... yes
+checking whether -lc should be explicitly linked in... no
+checking dynamic linker characteristics... GNU/Linux ld.so
+checking how to hardcode library paths into programs... immediate
+checking whether stripping libraries is possible... yes
+checking if libtool supports shared libraries... yes
+checking whether to build shared libraries... yes
+checking whether to build static libraries... no
+configure: creating ./config.status
+config.status: creating config.h
+config.status: executing libtool commands
+running: make
+/bin/sh /var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/libtool --mode=compile cc -D_GNU_SOURCE -I. -I/var/tmp/APC -DPHP_ATOM_INC -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/include -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/main -I/var/tmp/APC -I/usr/include/php -I/usr/include/php/main -I/usr/include/php/TSRM -I/usr/include/php/Zend -I/usr/include/php/ext -I/usr/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /var/tmp/APC/apc.c -o apc.lo
+libtool: compile:  cc -D_GNU_SOURCE -I. -I/var/tmp/APC -DPHP_ATOM_INC -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/include -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/main -I/var/tmp/APC -I/usr/include/php -I/usr/include/php/main -I/usr/include/php/TSRM -I/usr/include/php/Zend -I/usr/include/php/ext -I/usr/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /var/tmp/APC/apc.c  -fPIC -DPIC -o .libs/apc.o
+/var/tmp/APC/apc.c: In function 'apc_search_paths':
+/var/tmp/APC/apc.c:416:20: warning: assignment discards 'const' qualifier from pointer target type [enabled by default]
+         exec_fname = zend_get_executed_filename(TSRMLS_C);
+                    ^
+/bin/sh /var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/libtool --mode=compile cc -D_GNU_SOURCE -I. -I/var/tmp/APC -DPHP_ATOM_INC -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/include -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/main -I/var/tmp/APC -I/usr/include/php -I/usr/include/php/main -I/usr/include/php/TSRM -I/usr/include/php/Zend -I/usr/include/php/ext -I/usr/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /var/tmp/APC/php_apc.c -o php_apc.lo
+libtool: compile:  cc -D_GNU_SOURCE -I. -I/var/tmp/APC -DPHP_ATOM_INC -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/include -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/main -I/var/tmp/APC -I/usr/include/php -I/usr/include/php/main -I/usr/include/php/TSRM -I/usr/include/php/Zend -I/usr/include/php/ext -I/usr/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /var/tmp/APC/php_apc.c  -fPIC -DPIC -o .libs/php_apc.o
+/bin/sh /var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/libtool --mode=compile cc -D_GNU_SOURCE -I. -I/var/tmp/APC -DPHP_ATOM_INC -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/include -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/main -I/var/tmp/APC -I/usr/include/php -I/usr/include/php/main -I/usr/include/php/TSRM -I/usr/include/php/Zend -I/usr/include/php/ext -I/usr/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /var/tmp/APC/apc_cache.c -o apc_cache.lo
+libtool: compile:  cc -D_GNU_SOURCE -I. -I/var/tmp/APC -DPHP_ATOM_INC -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/include -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/main -I/var/tmp/APC -I/usr/include/php -I/usr/include/php/main -I/usr/include/php/TSRM -I/usr/include/php/Zend -I/usr/include/php/ext -I/usr/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /var/tmp/APC/apc_cache.c  -fPIC -DPIC -o .libs/apc_cache.o
+/bin/sh /var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/libtool --mode=compile cc -D_GNU_SOURCE -I. -I/var/tmp/APC -DPHP_ATOM_INC -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/include -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/main -I/var/tmp/APC -I/usr/include/php -I/usr/include/php/main -I/usr/include/php/TSRM -I/usr/include/php/Zend -I/usr/include/php/ext -I/usr/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /var/tmp/APC/apc_compile.c -o apc_compile.lo
+libtool: compile:  cc -D_GNU_SOURCE -I. -I/var/tmp/APC -DPHP_ATOM_INC -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/include -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/main -I/var/tmp/APC -I/usr/include/php -I/usr/include/php/main -I/usr/include/php/TSRM -I/usr/include/php/Zend -I/usr/include/php/ext -I/usr/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /var/tmp/APC/apc_compile.c  -fPIC -DPIC -o .libs/apc_compile.o
+/var/tmp/APC/apc_compile.c: In function 'my_copy_class_entry':
+/var/tmp/APC/apc_compile.c:755:38: warning: assignment from incompatible pointer type [enabled by default]
+         CHECK(dst->trait_precedences =
+                                      ^
+/var/tmp/APC/apc_compile.c:47:25: note: in definition of macro 'CHECK'
+ #define CHECK(p) { if ((p) == NULL) return NULL; }
+                         ^
+/var/tmp/APC/apc_compile.c: In function 'apc_copy_class_entry_for_execution':
+/var/tmp/APC/apc_compile.c:1956:38: warning: assignment from incompatible pointer type [enabled by default]
+         CHECK(dst->trait_precedences =
+                                      ^
+/var/tmp/APC/apc_compile.c:47:25: note: in definition of macro 'CHECK'
+ #define CHECK(p) { if ((p) == NULL) return NULL; }
+                         ^
+/bin/sh /var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/libtool --mode=compile cc -D_GNU_SOURCE -I. -I/var/tmp/APC -DPHP_ATOM_INC -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/include -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/main -I/var/tmp/APC -I/usr/include/php -I/usr/include/php/main -I/usr/include/php/TSRM -I/usr/include/php/Zend -I/usr/include/php/ext -I/usr/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /var/tmp/APC/apc_debug.c -o apc_debug.lo
+libtool: compile:  cc -D_GNU_SOURCE -I. -I/var/tmp/APC -DPHP_ATOM_INC -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/include -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/main -I/var/tmp/APC -I/usr/include/php -I/usr/include/php/main -I/usr/include/php/TSRM -I/usr/include/php/Zend -I/usr/include/php/ext -I/usr/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /var/tmp/APC/apc_debug.c  -fPIC -DPIC -o .libs/apc_debug.o
+/bin/sh /var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/libtool --mode=compile cc -D_GNU_SOURCE -I. -I/var/tmp/APC -DPHP_ATOM_INC -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/include -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/main -I/var/tmp/APC -I/usr/include/php -I/usr/include/php/main -I/usr/include/php/TSRM -I/usr/include/php/Zend -I/usr/include/php/ext -I/usr/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /var/tmp/APC/apc_fcntl.c -o apc_fcntl.lo
+libtool: compile:  cc -D_GNU_SOURCE -I. -I/var/tmp/APC -DPHP_ATOM_INC -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/include -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/main -I/var/tmp/APC -I/usr/include/php -I/usr/include/php/main -I/usr/include/php/TSRM -I/usr/include/php/Zend -I/usr/include/php/ext -I/usr/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /var/tmp/APC/apc_fcntl.c  -fPIC -DPIC -o .libs/apc_fcntl.o
+/bin/sh /var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/libtool --mode=compile cc -D_GNU_SOURCE -I. -I/var/tmp/APC -DPHP_ATOM_INC -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/include -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/main -I/var/tmp/APC -I/usr/include/php -I/usr/include/php/main -I/usr/include/php/TSRM -I/usr/include/php/Zend -I/usr/include/php/ext -I/usr/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /var/tmp/APC/apc_main.c -o apc_main.lo
+libtool: compile:  cc -D_GNU_SOURCE -I. -I/var/tmp/APC -DPHP_ATOM_INC -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/include -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/main -I/var/tmp/APC -I/usr/include/php -I/usr/include/php/main -I/usr/include/php/TSRM -I/usr/include/php/Zend -I/usr/include/php/ext -I/usr/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /var/tmp/APC/apc_main.c  -fPIC -DPIC -o .libs/apc_main.o
+/var/tmp/APC/apc_main.c: In function 'apc_compile_cache_entry':
+/var/tmp/APC/apc_main.c:421:22: warning: assignment discards 'const' qualifier from pointer target type [enabled by default]
+             filename = h->filename;
+                      ^
+/var/tmp/APC/apc_main.c:452:19: warning: assignment discards 'const' qualifier from pointer target type [enabled by default]
+     if(!path) path=h->filename;
+                   ^
+/bin/sh /var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/libtool --mode=compile cc -D_GNU_SOURCE -I. -I/var/tmp/APC -DPHP_ATOM_INC -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/include -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/main -I/var/tmp/APC -I/usr/include/php -I/usr/include/php/main -I/usr/include/php/TSRM -I/usr/include/php/Zend -I/usr/include/php/ext -I/usr/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /var/tmp/APC/apc_mmap.c -o apc_mmap.lo
+libtool: compile:  cc -D_GNU_SOURCE -I. -I/var/tmp/APC -DPHP_ATOM_INC -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/include -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/main -I/var/tmp/APC -I/usr/include/php -I/usr/include/php/main -I/usr/include/php/TSRM -I/usr/include/php/Zend -I/usr/include/php/ext -I/usr/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /var/tmp/APC/apc_mmap.c  -fPIC -DPIC -o .libs/apc_mmap.o
+/bin/sh /var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/libtool --mode=compile cc -D_GNU_SOURCE -I. -I/var/tmp/APC -DPHP_ATOM_INC -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/include -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/main -I/var/tmp/APC -I/usr/include/php -I/usr/include/php/main -I/usr/include/php/TSRM -I/usr/include/php/Zend -I/usr/include/php/ext -I/usr/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /var/tmp/APC/apc_sem.c -o apc_sem.lo
+libtool: compile:  cc -D_GNU_SOURCE -I. -I/var/tmp/APC -DPHP_ATOM_INC -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/include -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/main -I/var/tmp/APC -I/usr/include/php -I/usr/include/php/main -I/usr/include/php/TSRM -I/usr/include/php/Zend -I/usr/include/php/ext -I/usr/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /var/tmp/APC/apc_sem.c  -fPIC -DPIC -o .libs/apc_sem.o
+/bin/sh /var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/libtool --mode=compile cc -D_GNU_SOURCE -I. -I/var/tmp/APC -DPHP_ATOM_INC -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/include -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/main -I/var/tmp/APC -I/usr/include/php -I/usr/include/php/main -I/usr/include/php/TSRM -I/usr/include/php/Zend -I/usr/include/php/ext -I/usr/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /var/tmp/APC/apc_shm.c -o apc_shm.lo
+libtool: compile:  cc -D_GNU_SOURCE -I. -I/var/tmp/APC -DPHP_ATOM_INC -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/include -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/main -I/var/tmp/APC -I/usr/include/php -I/usr/include/php/main -I/usr/include/php/TSRM -I/usr/include/php/Zend -I/usr/include/php/ext -I/usr/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /var/tmp/APC/apc_shm.c  -fPIC -DPIC -o .libs/apc_shm.o
+/bin/sh /var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/libtool --mode=compile cc -D_GNU_SOURCE -I. -I/var/tmp/APC -DPHP_ATOM_INC -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/include -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/main -I/var/tmp/APC -I/usr/include/php -I/usr/include/php/main -I/usr/include/php/TSRM -I/usr/include/php/Zend -I/usr/include/php/ext -I/usr/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /var/tmp/APC/apc_pthreadmutex.c -o apc_pthreadmutex.lo
+libtool: compile:  cc -D_GNU_SOURCE -I. -I/var/tmp/APC -DPHP_ATOM_INC -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/include -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/main -I/var/tmp/APC -I/usr/include/php -I/usr/include/php/main -I/usr/include/php/TSRM -I/usr/include/php/Zend -I/usr/include/php/ext -I/usr/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /var/tmp/APC/apc_pthreadmutex.c  -fPIC -DPIC -o .libs/apc_pthreadmutex.o
+/bin/sh /var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/libtool --mode=compile cc -D_GNU_SOURCE -I. -I/var/tmp/APC -DPHP_ATOM_INC -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/include -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/main -I/var/tmp/APC -I/usr/include/php -I/usr/include/php/main -I/usr/include/php/TSRM -I/usr/include/php/Zend -I/usr/include/php/ext -I/usr/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /var/tmp/APC/apc_pthreadrwlock.c -o apc_pthreadrwlock.lo
+libtool: compile:  cc -D_GNU_SOURCE -I. -I/var/tmp/APC -DPHP_ATOM_INC -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/include -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/main -I/var/tmp/APC -I/usr/include/php -I/usr/include/php/main -I/usr/include/php/TSRM -I/usr/include/php/Zend -I/usr/include/php/ext -I/usr/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /var/tmp/APC/apc_pthreadrwlock.c  -fPIC -DPIC -o .libs/apc_pthreadrwlock.o
+/bin/sh /var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/libtool --mode=compile cc -D_GNU_SOURCE -I. -I/var/tmp/APC -DPHP_ATOM_INC -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/include -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/main -I/var/tmp/APC -I/usr/include/php -I/usr/include/php/main -I/usr/include/php/TSRM -I/usr/include/php/Zend -I/usr/include/php/ext -I/usr/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /var/tmp/APC/apc_spin.c -o apc_spin.lo
+libtool: compile:  cc -D_GNU_SOURCE -I. -I/var/tmp/APC -DPHP_ATOM_INC -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/include -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/main -I/var/tmp/APC -I/usr/include/php -I/usr/include/php/main -I/usr/include/php/TSRM -I/usr/include/php/Zend -I/usr/include/php/ext -I/usr/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /var/tmp/APC/apc_spin.c  -fPIC -DPIC -o .libs/apc_spin.o
+/bin/sh /var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/libtool --mode=compile cc -D_GNU_SOURCE -I. -I/var/tmp/APC -DPHP_ATOM_INC -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/include -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/main -I/var/tmp/APC -I/usr/include/php -I/usr/include/php/main -I/usr/include/php/TSRM -I/usr/include/php/Zend -I/usr/include/php/ext -I/usr/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /var/tmp/APC/pgsql_s_lock.c -o pgsql_s_lock.lo
+libtool: compile:  cc -D_GNU_SOURCE -I. -I/var/tmp/APC -DPHP_ATOM_INC -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/include -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/main -I/var/tmp/APC -I/usr/include/php -I/usr/include/php/main -I/usr/include/php/TSRM -I/usr/include/php/Zend -I/usr/include/php/ext -I/usr/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /var/tmp/APC/pgsql_s_lock.c  -fPIC -DPIC -o .libs/pgsql_s_lock.o
+/bin/sh /var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/libtool --mode=compile cc -D_GNU_SOURCE -I. -I/var/tmp/APC -DPHP_ATOM_INC -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/include -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/main -I/var/tmp/APC -I/usr/include/php -I/usr/include/php/main -I/usr/include/php/TSRM -I/usr/include/php/Zend -I/usr/include/php/ext -I/usr/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /var/tmp/APC/apc_sma.c -o apc_sma.lo
+libtool: compile:  cc -D_GNU_SOURCE -I. -I/var/tmp/APC -DPHP_ATOM_INC -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/include -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/main -I/var/tmp/APC -I/usr/include/php -I/usr/include/php/main -I/usr/include/php/TSRM -I/usr/include/php/Zend -I/usr/include/php/ext -I/usr/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /var/tmp/APC/apc_sma.c  -fPIC -DPIC -o .libs/apc_sma.o
+/bin/sh /var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/libtool --mode=compile cc -D_GNU_SOURCE -I. -I/var/tmp/APC -DPHP_ATOM_INC -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/include -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/main -I/var/tmp/APC -I/usr/include/php -I/usr/include/php/main -I/usr/include/php/TSRM -I/usr/include/php/Zend -I/usr/include/php/ext -I/usr/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /var/tmp/APC/apc_stack.c -o apc_stack.lo
+libtool: compile:  cc -D_GNU_SOURCE -I. -I/var/tmp/APC -DPHP_ATOM_INC -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/include -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/main -I/var/tmp/APC -I/usr/include/php -I/usr/include/php/main -I/usr/include/php/TSRM -I/usr/include/php/Zend -I/usr/include/php/ext -I/usr/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /var/tmp/APC/apc_stack.c  -fPIC -DPIC -o .libs/apc_stack.o
+/bin/sh /var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/libtool --mode=compile cc -D_GNU_SOURCE -I. -I/var/tmp/APC -DPHP_ATOM_INC -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/include -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/main -I/var/tmp/APC -I/usr/include/php -I/usr/include/php/main -I/usr/include/php/TSRM -I/usr/include/php/Zend -I/usr/include/php/ext -I/usr/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /var/tmp/APC/apc_zend.c -o apc_zend.lo
+libtool: compile:  cc -D_GNU_SOURCE -I. -I/var/tmp/APC -DPHP_ATOM_INC -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/include -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/main -I/var/tmp/APC -I/usr/include/php -I/usr/include/php/main -I/usr/include/php/TSRM -I/usr/include/php/Zend -I/usr/include/php/ext -I/usr/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /var/tmp/APC/apc_zend.c  -fPIC -DPIC -o .libs/apc_zend.o
+/bin/sh /var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/libtool --mode=compile cc -D_GNU_SOURCE -I. -I/var/tmp/APC -DPHP_ATOM_INC -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/include -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/main -I/var/tmp/APC -I/usr/include/php -I/usr/include/php/main -I/usr/include/php/TSRM -I/usr/include/php/Zend -I/usr/include/php/ext -I/usr/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /var/tmp/APC/apc_rfc1867.c -o apc_rfc1867.lo
+libtool: compile:  cc -D_GNU_SOURCE -I. -I/var/tmp/APC -DPHP_ATOM_INC -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/include -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/main -I/var/tmp/APC -I/usr/include/php -I/usr/include/php/main -I/usr/include/php/TSRM -I/usr/include/php/Zend -I/usr/include/php/ext -I/usr/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /var/tmp/APC/apc_rfc1867.c  -fPIC -DPIC -o .libs/apc_rfc1867.o
+/bin/sh /var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/libtool --mode=compile cc -D_GNU_SOURCE -I. -I/var/tmp/APC -DPHP_ATOM_INC -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/include -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/main -I/var/tmp/APC -I/usr/include/php -I/usr/include/php/main -I/usr/include/php/TSRM -I/usr/include/php/Zend -I/usr/include/php/ext -I/usr/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /var/tmp/APC/apc_signal.c -o apc_signal.lo
+libtool: compile:  cc -D_GNU_SOURCE -I. -I/var/tmp/APC -DPHP_ATOM_INC -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/include -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/main -I/var/tmp/APC -I/usr/include/php -I/usr/include/php/main -I/usr/include/php/TSRM -I/usr/include/php/Zend -I/usr/include/php/ext -I/usr/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /var/tmp/APC/apc_signal.c  -fPIC -DPIC -o .libs/apc_signal.o
+/bin/sh /var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/libtool --mode=compile cc -D_GNU_SOURCE -I. -I/var/tmp/APC -DPHP_ATOM_INC -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/include -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/main -I/var/tmp/APC -I/usr/include/php -I/usr/include/php/main -I/usr/include/php/TSRM -I/usr/include/php/Zend -I/usr/include/php/ext -I/usr/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /var/tmp/APC/apc_pool.c -o apc_pool.lo
+libtool: compile:  cc -D_GNU_SOURCE -I. -I/var/tmp/APC -DPHP_ATOM_INC -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/include -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/main -I/var/tmp/APC -I/usr/include/php -I/usr/include/php/main -I/usr/include/php/TSRM -I/usr/include/php/Zend -I/usr/include/php/ext -I/usr/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /var/tmp/APC/apc_pool.c  -fPIC -DPIC -o .libs/apc_pool.o
+/bin/sh /var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/libtool --mode=compile cc -D_GNU_SOURCE -I. -I/var/tmp/APC -DPHP_ATOM_INC -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/include -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/main -I/var/tmp/APC -I/usr/include/php -I/usr/include/php/main -I/usr/include/php/TSRM -I/usr/include/php/Zend -I/usr/include/php/ext -I/usr/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /var/tmp/APC/apc_iterator.c -o apc_iterator.lo
+libtool: compile:  cc -D_GNU_SOURCE -I. -I/var/tmp/APC -DPHP_ATOM_INC -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/include -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/main -I/var/tmp/APC -I/usr/include/php -I/usr/include/php/main -I/usr/include/php/TSRM -I/usr/include/php/Zend -I/usr/include/php/ext -I/usr/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /var/tmp/APC/apc_iterator.c  -fPIC -DPIC -o .libs/apc_iterator.o
+/bin/sh /var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/libtool --mode=compile cc -D_GNU_SOURCE -I. -I/var/tmp/APC -DPHP_ATOM_INC -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/include -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/main -I/var/tmp/APC -I/usr/include/php -I/usr/include/php/main -I/usr/include/php/TSRM -I/usr/include/php/Zend -I/usr/include/php/ext -I/usr/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /var/tmp/APC/apc_bin.c -o apc_bin.lo
+libtool: compile:  cc -D_GNU_SOURCE -I. -I/var/tmp/APC -DPHP_ATOM_INC -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/include -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/main -I/var/tmp/APC -I/usr/include/php -I/usr/include/php/main -I/usr/include/php/TSRM -I/usr/include/php/Zend -I/usr/include/php/ext -I/usr/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /var/tmp/APC/apc_bin.c  -fPIC -DPIC -o .libs/apc_bin.o
+/bin/sh /var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/libtool --mode=compile cc -D_GNU_SOURCE -I. -I/var/tmp/APC -DPHP_ATOM_INC -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/include -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/main -I/var/tmp/APC -I/usr/include/php -I/usr/include/php/main -I/usr/include/php/TSRM -I/usr/include/php/Zend -I/usr/include/php/ext -I/usr/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /var/tmp/APC/apc_string.c -o apc_string.lo
+libtool: compile:  cc -D_GNU_SOURCE -I. -I/var/tmp/APC -DPHP_ATOM_INC -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/include -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/main -I/var/tmp/APC -I/usr/include/php -I/usr/include/php/main -I/usr/include/php/TSRM -I/usr/include/php/Zend -I/usr/include/php/ext -I/usr/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /var/tmp/APC/apc_string.c  -fPIC -DPIC -o .libs/apc_string.o
+/var/tmp/APC/apc_string.c: In function 'apc_new_interned_string':
+/var/tmp/APC/apc_string.c:104:5: warning: passing argument 1 of 'memcpy' discards 'const' qualifier from pointer target type [enabled by default]
+     memcpy(p->arKey, arKey, nKeyLength);
+     ^
+In file included from /var/tmp/APC/apc.h:47:0,
+                 from /var/tmp/APC/apc_string.c:30:
+/usr/include/string.h:42:14: note: expected 'void * __restrict__' but argument is of type 'const char *'
+ extern void *memcpy (void *__restrict __dest, const void *__restrict __src,
+              ^
+/bin/sh /var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/libtool --mode=link cc -DPHP_ATOM_INC -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/include -I/var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/main -I/var/tmp/APC -I/usr/include/php -I/usr/include/php/main -I/usr/include/php/TSRM -I/usr/include/php/Zend -I/usr/include/php/ext -I/usr/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -o apc.la -export-dynamic -avoid-version -prefer-pic -module -rpath /var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/modules  apc.lo php_apc.lo apc_cache.lo apc_compile.lo apc_debug.lo apc_fcntl.lo apc_main.lo apc_mmap.lo apc_sem.lo apc_shm.lo apc_pthreadmutex.lo apc_pthreadrwlock.lo apc_spin.lo pgsql_s_lock.lo apc_sma.lo apc_stack.lo apc_zend.lo apc_rfc1867.lo apc_signal.lo apc_pool.lo apc_iterator.lo apc_bin.lo apc_string.lo -lrt
+libtool: link: cc -shared  -fPIC -DPIC  .libs/apc.o .libs/php_apc.o .libs/apc_cache.o .libs/apc_compile.o .libs/apc_debug.o .libs/apc_fcntl.o .libs/apc_main.o .libs/apc_mmap.o .libs/apc_sem.o .libs/apc_shm.o .libs/apc_pthreadmutex.o .libs/apc_pthreadrwlock.o .libs/apc_spin.o .libs/pgsql_s_lock.o .libs/apc_sma.o .libs/apc_stack.o .libs/apc_zend.o .libs/apc_rfc1867.o .libs/apc_signal.o .libs/apc_pool.o .libs/apc_iterator.o .libs/apc_bin.o .libs/apc_string.o   -lrt  -O2   -Wl,-soname -Wl,apc.so -o .libs/apc.so
+.libs/apc_mmap.o: In function `apc_mmap':
+/var/tmp/APC/apc_mmap.c:91: warning: the use of `mktemp' is dangerous, better use `mkstemp'
+libtool: link: ( cd ".libs" && rm -f "apc.la" && ln -s "../apc.la" "apc.la" )
+/bin/sh /var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/libtool --mode=install cp ./apc.la /var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/modules
+libtool: install: cp ./.libs/apc.so /var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/modules/apc.so
+libtool: install: cp ./.libs/apc.lai /var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/modules/apc.la
+libtool: finish: PATH="/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/sbin" ldconfig -n /var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/modules
+----------------------------------------------------------------------
+Libraries have been installed in:
+   /var/tmp/pear-build-defaultuserDoyZ6g/APC-3.1.13/modules
+
+If you ever happen to want to link against installed libraries
+in a given directory, LIBDIR, you must either use libtool, and
+specify the full pathname of the library, or use the `-LLIBDIR'
+flag during linking and do at least one of the following:
+   - add LIBDIR to the `LD_LIBRARY_PATH' environment variable
+     during execution
+   - add LIBDIR to the `LD_RUN_PATH' environment variable
+     during linking
+   - use the `-Wl,-rpath -Wl,LIBDIR' linker flag
+   - have your system administrator add LIBDIR to `/etc/ld.so.conf'
+
+See any operating system documentation about shared libraries for
+more information, such as the ld(1) and ld.so(8) manual pages.
+----------------------------------------------------------------------
+
+Build complete.
+Don't forget to run 'make test'.
+
+running: make INSTALL_ROOT="/var/tmp/pear-build-defaultuserDoyZ6g/install-APC-3.1.13" install
+Installing shared extensions:     /var/tmp/pear-build-defaultuserDoyZ6g/install-APC-3.1.13/usr/lib64/php/modules/
+Installing header files:          /var/tmp/pear-build-defaultuserDoyZ6g/install-APC-3.1.13/usr/include/php/
+running: find "/var/tmp/pear-build-defaultuserDoyZ6g/install-APC-3.1.13" | xargs ls -dils
+100664238   0 drwxr-xr-x. 3 root root     17 Aug 19 19:38 /var/tmp/pear-build-defaultuserDoyZ6g/install-APC-3.1.13
+ 16839485   0 drwxr-xr-x. 4 root root     34 Aug 19 19:38 /var/tmp/pear-build-defaultuserDoyZ6g/install-APC-3.1.13/usr
+100664239   0 drwxr-xr-x. 3 root root     17 Aug 19 19:38 /var/tmp/pear-build-defaultuserDoyZ6g/install-APC-3.1.13/usr/include
+117608262   0 drwxr-xr-x. 3 root root     17 Aug 19 19:38 /var/tmp/pear-build-defaultuserDoyZ6g/install-APC-3.1.13/usr/include/php
+134367273   0 drwxr-xr-x. 3 root root     17 Aug 19 19:38 /var/tmp/pear-build-defaultuserDoyZ6g/install-APC-3.1.13/usr/include/php/ext
+151020983   0 drwxr-xr-x. 2 root root     30 Aug 19 19:38 /var/tmp/pear-build-defaultuserDoyZ6g/install-APC-3.1.13/usr/include/php/ext/apc
+151020984   4 -rw-r--r--. 1 root root   3357 Aug 19 19:38 /var/tmp/pear-build-defaultuserDoyZ6g/install-APC-3.1.13/usr/include/php/ext/apc/apc_serializer.h
+ 33583581   0 drwxr-xr-x. 3 root root     17 Aug 19 19:38 /var/tmp/pear-build-defaultuserDoyZ6g/install-APC-3.1.13/usr/lib64
+ 50366111   0 drwxr-xr-x. 3 root root     21 Aug 19 19:38 /var/tmp/pear-build-defaultuserDoyZ6g/install-APC-3.1.13/usr/lib64/php
+ 67273860   0 drwxr-xr-x. 2 root root     20 Aug 19 19:38 /var/tmp/pear-build-defaultuserDoyZ6g/install-APC-3.1.13/usr/lib64/php/modules
+ 67273861 776 -rwxr-xr-x. 1 root root 792256 Aug 19 19:38 /var/tmp/pear-build-defaultuserDoyZ6g/install-APC-3.1.13/usr/lib64/php/modules/apc.so
+
+Build process completed successfully
+Installing '/usr/lib64/php/modules/apc.so'
+Installing '/usr/include/php/ext/apc/apc_serializer.h'
+install ok: channel://pecl.php.net/APC-3.1.13
+configuration option "php_ini" is not set to php.ini location
+You should add "extension=apc.so" to php.ini
+
+
+
+[root@666dd6cbfe02 /]# yum list | grep ^supervisor 
+supervisor.noarch                        3.1.3-3.el7                     epel   

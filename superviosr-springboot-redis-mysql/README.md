@@ -1,22 +1,21 @@
-# Hands-on: Implementing Docker image for SpringBoot webapp supperting non-Internet env
+# Docker image for SpringBoot webapp implementing non-Internet env
 
 ## Table of contents
 
-__[Work with image](#Work with Docker image of Springboot Webapp)__
-
+Work with image](#Work-with-Docker-image-of-Springboot-Webapp)
+    1. Make
+    1. Pre-build
     1. Test
     1. Issue
-    
- __[Work with non-Internet](#Work offline)__
 
+ Work with non-Internet](#Work-offline)
     1. Install Docker locally
     1. Maven build locally
     1. Mount fresh jar/war when re-executing Docker run
-    
-__Work with all-in-one image with Supervisor__
 
+Work with all-in-one image with Supervisor
     1. [./all-in-supervisord.md](./all-in-supervisord.md)
-    
+
 __Reference__
 
 Supervisor
@@ -27,8 +26,13 @@ Dockerfile.all-in-one.ubuntu
 - https://github.com/docker-library/mysql/blob/6659750146b7a6b91a96c786729b4d482cf49fe6/5.7/Dockerfile
 - https://github.com/docker-library/redis/blob/b6d413ceff3a2bca10a430ace121597fa8fe2a2c/4.0/Dockerfile
 
-Dockerfile.all-in-one.oraclelinux
+Dockerfile.mysql.oraclelinux
 - https://github.com/mysql/mysql-docker/blob/mysql-server/5.7/Dockerfile
+
+Maven plugin for Docker
+- https://github.com/fabric8io/docker-maven-plugin
+- https://github.com/spotify/docker-maven-plugin
+- https://github.com/spotify/dockerfile-maven
 
 ## Work with Docker image of Springboot Webapp
 
@@ -187,6 +191,25 @@ Successfully built ec107655001f
 Successfully tagged nebroad/test:latest
 ```
 
+Output
+```
+vagrant@ubuntu-bionic:/Users/fanhongling/Downloads/workspace/src/github.com/stackdocker/container-ops/superviosr-springboot-redis-mysql$ docker images nebroad/test
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+nebroad/test        latest              ec107655001f        3 hours ago         567MB
+```
+
+### Pre-build
+
+Image
+```
+docker pull docker.io/tangfeixiong/nebroad-test:springboot-webapp
+```
+
+additional
+```
+docker tang docker.io/tangfeixiong/nebroad-test:springboot-webapp nebroad/test
+```
+
 ### Test
 
 For example
@@ -310,6 +333,18 @@ make[1]: Leaving directory '/Users/fanhongling/Downloads/workspace/src/github.co
 For example
 ```
 mvn clean package spring-boot:repackage --no-snapshot-updates --offline
+```
+
+### Docker image
+
+Output image to tar or Vice Versa
+```
+vagrant@ubuntu-bionic:/Users/fanhongling/Downloads/workspace/src/github.com/stackdocker/container-ops/superviosr-springboot-redis-mysql$ make img-to-tar SPRINGBOOT_WEBAPP_IMGREPO=nebroad/demo
+/usr/bin/docker save -o "nebroad_demo.tar" nebroad/demo
+```
+
+```
+$ make tar-to-image 
 ```
 
 ### Volume mount whith Docker run

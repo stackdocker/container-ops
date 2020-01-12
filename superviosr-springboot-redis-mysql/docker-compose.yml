@@ -1,0 +1,59 @@
+version: '3.2'
+
+services:
+  mysql: #  mariadb
+    # command: --default-authentication-plugin=mysql_native_password
+    environment:
+    - MYSQL_ROOT_PASSWORD=ROOT_PASSWORD!
+    # - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+    - MYSQL_USER=demo
+    - MYSQL_PASSWORD=DEMO_PASSWORD
+    - MYSQL_DATABASE=demodb
+    image: mysql:5.7.28
+    # image: mariadb:10.3
+    ports:
+    - "3306:3306"
+    restart: always
+    # restart: no 
+    # restart: on-failure
+    # restart: unless-stopped
+    volumes:
+    # - ./db-init/schema.sql:/docker-entrypoint-initdb.d/schema.sql:ro
+    - ./db-init/:/docker-entrypoint-initdb.d/:ro
+    - db-data:/var/lib/mysql
+    # - ./db-config/my.cnf:/etc/mysql/conf.d/my.cnf
+
+  redis:
+    image: redis:4.0.14
+    ports:
+    - "6379:6379"
+    restart: always
+    volumes:
+    - cache-data:/data
+    # - ./redis-conf/redis.conf:/usr/local/etc/redis/redis.conf
+
+  webapp:
+    environment:
+    # - DBAPISERVER_ADDRESS=http://wafapi:8080
+    - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/demodb
+    - SPRING_DATASOURCE_USERNAME=demo
+    - SPRING_DATASOURCE_PASSWORD=DEMO_PASSWORD
+    - SPRING_REDIS_HOST=redis
+    - SPRING_REDIS_PORT=6379
+    - SPRING_REDIS_DATABASE=0
+    # - SPRING_CACHE_TYPE=none  # comment it if redis is available
+    - TARGET_ARCHIVE=webapp.war
+    image: nebroad/test
+    ports:
+    - "14780:8080"
+    restart: always
+    volumes:
+    # - ./app-config:/tmp/
+    - type: bind
+      source: ./webappdemo.war
+      target: /springboot/webapp.war
+
+volumes:
+    db-data:
+      external: true # Force docker compose to look for an existing volume
+    cache-data:

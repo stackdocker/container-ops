@@ -1,0 +1,11 @@
+*.jar
+*.war
+*.zip
+
+*.tar
+*.gz
+*.bz2
+
+supervisor-sample.conf
+
+docker-compose

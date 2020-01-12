@@ -1,0 +1,96 @@
+FROM openjdk:8u232-jdk
+# FROM docker.io/centos:centos7
+# FROM openshift/base-centos7
+
+LABEL maintainer="tangfeixiong <tangfx128@gmail.com>" \
+      project="https://github.com/stackdocker/container-ops" \
+      namespace="supervisor-springboot-redis-mysql" \
+      name="springboot-webapp" \
+      annotations='{"stackdocker.io/created-by":"n/a"}' \
+      tags="openjdk8 springboot mybatis mariadb"
+
+ARG SPRING_DATASOURCE_URL
+ARG SPRING_DATASOURCE_USERNAME
+ARG SPRING_DATASOURCE_PASSWORD
+ARG SPRING_REDIS_HOST
+ARG SPRING_REDIS_PORT
+ARG SPRING_REDIS_DATABASE
+ARG SPRING_CACHE_TYPE
+ARG SERVER_PORT
+
+ARG JAVA_OPTIONS
+ARG TARGET_ARCHIVE
+
+COPY "${TARGET_ARCHIVE:-/target/example.jar}" /tmp/
+
+ENV JAVA_OPTIONS="${JAVA_OPTIONS:--Xms128m -Xmx512m -XX:PermSize=128m -XX:MaxPermSize=256m}" \
+    SPRING_DATASOURCE_URL="${SPRING_DATASOURCE_URL:-jdbc:mysql://127.0.0.1:3306/testdb}" \
+    SPRING_DATASOURCE_USERNAME="${SPRING_DATASOURCE_USERNAME:-demo}" \
+    SPRING_DATASOURCE_PASSWORD="${SPRING_DATASOURCE_PASSWORD:-DEMO_PASSWORD}" \
+	SRPING_REDIS_HOST="${SPRING_REDIS_HOST:-localhost}" \
+	SPRING_REDIS_PORT="${SPRING_REDIS_PORT:-6379}" \
+	SPRING_REDIS_DATABASE="${SPRING_REDIS_DATABASE:-0}" \
+	SPRING_CACHE_TYPE="${SPRING_CACHE_TYPE:-REDIS}" \
+    SERVER_PORT="${SERVER_PORT:-8080}" \
+	TARGET_ARCHIVE="${TARGET_ARCHIVE:-webapp.war}"
+
+RUN set -ex; \
+# install java etc.
+    { export linux_distro="$(awk -F= '/^NAME/{print $2}' /etc/os-release)"; \
+	if [ "$linux_distro" = '"Ubuntu"' -o "$linux_distro" = '"Debian GNU/Linux"' ]; then \
+	    apt-get update; \
+	    DEBIAN_FRONTEND="noninteractive" apt-get install -y --no-install-recommends \
+		    ca-certificates \
+		    wget \
+		    net-tools \
+		    openssl \
+		    tzdata \
+	    && rm -rf /var/lib/apt/lists/*; \
+	    echo $TZ > /etc/timezone \
+	    && rm -f /etc/localtime \
+	    && ln -fs /usr/share/zoneinfo/$TZ /etc/localtime \
+	    && dpkg-reconfigure -f noninteractive tzdata; \
+		[ -n $JAVA_VERSION ] || apt-get install openjdk-8-jdk-headless; \		  
+	elif [ "${linux_distro}" = '"CentOS Linux"' ]; then \
+        install_Pkgs=" \
+            tar \
+            unzip \
+            bc \
+            which \
+            lsof \
+            java-1.8.0-openjdk \
+        " \
+        && yum install -y $install_Pkgs \
+        && yum clean all -y; \
+	else \
+	    echo "Unexpected Linux distro"; \
+		exit 1; \
+	fi }; \
+	\
+# wind up
+	echo
+
+
+RUN set -ex; \
+    mkdir /springboot; \
+    touch /springboot/run.sh \
+    && echo '#!/bin/bash \n    \
+if [ -z $(find /springboot -name "*.?ar") ]; then \n    \
+    cp /tmp/*.?ar /springboot/ ; \n    \
+fi \n    \
+export TARGET_ARCHIVE=$(find /springboot -name "*.?ar" -print | grep "$TARGET_ARCHIVE") \n    \
+exec java -Djava.security.egd=file:/dev/./urandom $JAVA_OPTIONS -jar $TARGET_ARCHIVE'    \
+        >> /springboot/run.sh \
+	&& chmod +x /springboot/run.sh
+
+
+# This default user is created in the openshift/base-centos7 image
+# USER 1001
+
+VOLUME /springboot
+
+EXPOSE ${SERVER_PORT:-8080}
+
+CMD ["/springboot/run.sh"]
+
+# CMD java -Djava.security.egd=file:/dev/./urandom $JAVA_OPTIONS -jar /springboot/webapp.jar

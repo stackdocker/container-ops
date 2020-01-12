@@ -2,19 +2,22 @@
 
 ## Table of contents
 
-Work with image](#Work-with-Docker-image-of-Springboot-Webapp)
-    1. Make
-    1. Pre-build
-    1. Test
-    1. Issue
+[Work with image](#Work-with-Docker-image-of-Springboot-Webapp)
 
- Work with non-Internet](#Work-offline)
-    1. Install Docker locally
-    1. Maven build locally
-    1. Mount fresh jar/war when re-executing Docker run
+1. Make
+1. Pre-build
+1. Test
+1. Issue
+
+[Work with non-Internet](#Work-offline)
+
+1. Install Docker locally
+1. Maven build locally
+1. Mount fresh jar/war when re-executing Docker run
 
 Work with all-in-one image with Supervisor
-    1. [./all-in-supervisord.md](./all-in-supervisord.md)
+
+1. [./all-in-supervisord.md](./all-in-supervisord.md)
 
 __Reference__
 
@@ -313,11 +316,11 @@ Processing triggers for man-db (2.8.3-2ubuntu0.1) ...
 
 ## Work offline
 
-### Docker offline 
+### Docker Packages
 
-Download packages
+For example
 ```
-vagrant@ubuntu-bionic:/Users/fanhongling/Downloads/workspace/src/github.com/stackdocker/container-ops/superviosr-springboot-redis-mysql$ make get-docker-packages
+vagrant@ubuntu-bionic:/Users/fanhongling/Downloads/workspace/src/github.com/stackdocker/container-ops/superviosr-springboot-redis-mysql$ make work-offline-packages
 make -C deb-pkg download
 make[1]: Entering directory '/Users/fanhongling/Downloads/workspace/src/github.com/stackdocker/container-ops/superviosr-springboot-redis-mysql/deb-pkg'
 make[1]: Warning: File 'Makefile' has modification time 7577 s in the future
@@ -326,6 +329,290 @@ Get:1 http://archive.ubuntu.com/ubuntu bionic/universe amd64 docker-compose all 
 Get:2 http://archive.ubuntu.com/ubuntu bionic-updates/universe amd64 docker.io amd64 18.09.7-0ubuntu1~18.04.4 [30.7 MB]
 Fetched 30.8 MB in 26s (1173 kB/s)                                                                                                                    
 make[1]: Leaving directory '/Users/fanhongling/Downloads/workspace/src/github.com/stackdocker/container-ops/superviosr-springboot-redis-mysql/deb-pkg'
+```
+
+Also modify sub-directory Makefile to download required: Docker, MySQL, Redis, Nginx, Python, Wget ...
+
+Download according base image
+```
+vagrant@ubuntu-bionic:/Users/fanhongling/Downloads/workspace/src/github.com/stackdocker/container-ops/superviosr-springboot-redis-mysql$ docker run -ti --rm --name downloader -v $(pwd)/:/tmp/ centos:centos7 /bin/sh -c 'yum install bash make; cd /tmp; make work-offline-packages OFFLINE_PKG_DIR=rpm-pkg' 
+Loaded plugins: fastestmirror, ovl
+Determining fastest mirrors
+ * base: mirrors.cat.net
+ * extras: mirrors.cat.net
+ * updates: mirrors.cat.net
+base                                                                                                                            | 3.6 kB  00:00:00     
+extras                                                                                                                          | 2.9 kB  00:00:00     
+updates                                                                                                                         | 2.9 kB  00:00:00     
+(1/4): base/7/x86_64/group_gz                                                                                                   | 165 kB  00:00:00     
+(2/4): extras/7/x86_64/primary_db                                                                                               | 153 kB  00:00:00     
+(3/4): updates/7/x86_64/primary_db                                                                                              | 5.9 MB  00:00:11     
+(4/4): base/7/x86_64/primary_db                                                                                                 | 6.0 MB  00:00:14     
+Package bash-4.2.46-33.el7.x86_64 already installed and latest version
+Resolving Dependencies
+--> Running transaction check
+---> Package make.x86_64 1:3.82-24.el7 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+=======================================================================================================================================================
+ Package                          Arch                               Version                                    Repository                        Size
+=======================================================================================================================================================
+Installing:
+ make                             x86_64                             1:3.82-24.el7                              base                             421 k
+
+Transaction Summary
+=======================================================================================================================================================
+Install  1 Package
+
+Total download size: 421 k
+Installed size: 1.1 M
+Is this ok [y/d/N]: y
+Downloading packages:
+warning: /var/cache/yum/x86_64/7/base/packages/make-3.82-24.el7.x86_64.rpm: Header V3 RSA/SHA256 Signature, key ID f4a80eb5: NOKEY151 kB  --:--:-- ETA 
+Public key for make-3.82-24.el7.x86_64.rpm is not installed
+make-3.82-24.el7.x86_64.rpm                                                                                                     | 421 kB  00:00:01     
+Retrieving key from file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+Importing GPG key 0xF4A80EB5:
+ Userid     : "CentOS-7 Key (CentOS 7 Official Signing Key) <security@centos.org>"
+ Fingerprint: 6341 ab27 53d7 8a78 a7c2 7bb1 24c6 a8a7 f4a8 0eb5
+ Package    : centos-release-7-7.1908.0.el7.centos.x86_64 (@CentOS)
+ From       : /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+Is this ok [y/N]: y
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : 1:make-3.82-24.el7.x86_64                                                                                                           1/1 
+  Verifying  : 1:make-3.82-24.el7.x86_64                                                                                                           1/1 
+
+Installed:
+  make.x86_64 1:3.82-24.el7                                                                                                                            
+
+Complete!
+make: Warning: File `Makefile' has modification time 17569 s in the future
+new packages into rpm-pkg
+make -C rpm-pkg download
+make[1]: Entering directory `/tmp/rpm-pkg'
+make[1]: Warning: File `Makefile' has modification time 18208 s in the future
+yum install --downloadonly --downloaddir=. docker
+Loaded plugins: fastestmirror, ovl
+Loading mirror speeds from cached hostfile
+ * base: mirrors.cat.net
+ * extras: mirrors.cat.net
+ * updates: mirrors.cat.net
+Resolving Dependencies
+--> Running transaction check
+---> Package docker.x86_64 2:1.13.1-103.git7f2769b.el7.centos will be installed
+--> Processing Dependency: docker-common = 2:1.13.1-103.git7f2769b.el7.centos for package: 2:docker-1.13.1-103.git7f2769b.el7.centos.x86_64
+--> Processing Dependency: docker-client = 2:1.13.1-103.git7f2769b.el7.centos for package: 2:docker-1.13.1-103.git7f2769b.el7.centos.x86_64
+--> Processing Dependency: subscription-manager-rhsm-certificates for package: 2:docker-1.13.1-103.git7f2769b.el7.centos.x86_64
+--> Processing Dependency: libseccomp.so.2()(64bit) for package: 2:docker-1.13.1-103.git7f2769b.el7.centos.x86_64
+--> Running transaction check
+---> Package docker-client.x86_64 2:1.13.1-103.git7f2769b.el7.centos will be installed
+---> Package docker-common.x86_64 2:1.13.1-103.git7f2769b.el7.centos will be installed
+--> Processing Dependency: skopeo-containers >= 1:0.1.26-2 for package: 2:docker-common-1.13.1-103.git7f2769b.el7.centos.x86_64
+--> Processing Dependency: oci-umount >= 2:2.3.3-3 for package: 2:docker-common-1.13.1-103.git7f2769b.el7.centos.x86_64
+--> Processing Dependency: oci-systemd-hook >= 1:0.1.4-9 for package: 2:docker-common-1.13.1-103.git7f2769b.el7.centos.x86_64
+--> Processing Dependency: oci-register-machine >= 1:0-5.13 for package: 2:docker-common-1.13.1-103.git7f2769b.el7.centos.x86_64
+--> Processing Dependency: lvm2 >= 2.02.112 for package: 2:docker-common-1.13.1-103.git7f2769b.el7.centos.x86_64
+--> Processing Dependency: container-storage-setup >= 0.9.0-1 for package: 2:docker-common-1.13.1-103.git7f2769b.el7.centos.x86_64
+--> Processing Dependency: container-selinux >= 2:2.51-1 for package: 2:docker-common-1.13.1-103.git7f2769b.el7.centos.x86_64
+--> Processing Dependency: xfsprogs for package: 2:docker-common-1.13.1-103.git7f2769b.el7.centos.x86_64
+--> Processing Dependency: atomic-registries for package: 2:docker-common-1.13.1-103.git7f2769b.el7.centos.x86_64
+---> Package libseccomp.x86_64 0:2.3.1-3.el7 will be installed
+---> Package subscription-manager-rhsm-certificates.x86_64 0:1.24.13-3.el7.centos will be installed
+--> Running transaction check
+---> Package atomic-registries.x86_64 1:1.22.1-29.gitb507039.el7 will be installed
+--> Processing Dependency: python-yaml for package: 1:atomic-registries-1.22.1-29.gitb507039.el7.x86_64
+--> Processing Dependency: python-setuptools for package: 1:atomic-registries-1.22.1-29.gitb507039.el7.x86_64
+--> Processing Dependency: python-pytoml for package: 1:atomic-registries-1.22.1-29.gitb507039.el7.x86_64
+---> Package container-selinux.noarch 2:2.107-3.el7 will be installed
+--> Processing Dependency: selinux-policy-targeted >= 3.13.1-216.el7 for package: 2:container-selinux-2.107-3.el7.noarch
+--> Processing Dependency: selinux-policy-base >= 3.13.1-216.el7 for package: 2:container-selinux-2.107-3.el7.noarch
+--> Processing Dependency: selinux-policy >= 3.13.1-216.el7 for package: 2:container-selinux-2.107-3.el7.noarch
+--> Processing Dependency: policycoreutils >= 2.5-11 for package: 2:container-selinux-2.107-3.el7.noarch
+--> Processing Dependency: policycoreutils-python for package: 2:container-selinux-2.107-3.el7.noarch
+--> Processing Dependency: libselinux-utils for package: 2:container-selinux-2.107-3.el7.noarch
+---> Package container-storage-setup.noarch 0:0.11.0-2.git5eaf76c.el7 will be installed
+--> Processing Dependency: parted for package: container-storage-setup-0.11.0-2.git5eaf76c.el7.noarch
+---> Package containers-common.x86_64 1:0.1.37-3.el7.centos will be installed
+---> Package lvm2.x86_64 7:2.02.185-2.el7_7.2 will be installed
+--> Processing Dependency: lvm2-libs = 7:2.02.185-2.el7_7.2 for package: 7:lvm2-2.02.185-2.el7_7.2.x86_64
+--> Processing Dependency: device-mapper-persistent-data >= 0.7.0-0.1.rc6 for package: 7:lvm2-2.02.185-2.el7_7.2.x86_64
+--> Processing Dependency: liblvm2app.so.2.2(Base)(64bit) for package: 7:lvm2-2.02.185-2.el7_7.2.x86_64
+--> Processing Dependency: libdevmapper-event.so.1.02(Base)(64bit) for package: 7:lvm2-2.02.185-2.el7_7.2.x86_64
+--> Processing Dependency: libaio.so.1(LIBAIO_0.4)(64bit) for package: 7:lvm2-2.02.185-2.el7_7.2.x86_64
+--> Processing Dependency: libaio.so.1(LIBAIO_0.1)(64bit) for package: 7:lvm2-2.02.185-2.el7_7.2.x86_64
+--> Processing Dependency: liblvm2app.so.2.2()(64bit) for package: 7:lvm2-2.02.185-2.el7_7.2.x86_64
+--> Processing Dependency: libdevmapper-event.so.1.02()(64bit) for package: 7:lvm2-2.02.185-2.el7_7.2.x86_64
+--> Processing Dependency: libaio.so.1()(64bit) for package: 7:lvm2-2.02.185-2.el7_7.2.x86_64
+---> Package oci-register-machine.x86_64 1:0-6.git2b44233.el7 will be installed
+---> Package oci-systemd-hook.x86_64 1:0.2.0-1.git05e6923.el7_6 will be installed
+--> Processing Dependency: libyajl.so.2()(64bit) for package: 1:oci-systemd-hook-0.2.0-1.git05e6923.el7_6.x86_64
+---> Package oci-umount.x86_64 2:2.5-3.el7 will be installed
+---> Package xfsprogs.x86_64 0:4.5.0-20.el7 will be installed
+--> Running transaction check
+---> Package PyYAML.x86_64 0:3.10-11.el7 will be installed
+--> Processing Dependency: libyaml-0.so.2()(64bit) for package: PyYAML-3.10-11.el7.x86_64
+---> Package device-mapper-event-libs.x86_64 7:1.02.158-2.el7_7.2 will be installed
+---> Package device-mapper-persistent-data.x86_64 0:0.8.5-1.el7 will be installed
+---> Package libaio.x86_64 0:0.3.109-13.el7 will be installed
+---> Package libselinux-utils.x86_64 0:2.5-14.1.el7 will be installed
+---> Package lvm2-libs.x86_64 7:2.02.185-2.el7_7.2 will be installed
+--> Processing Dependency: device-mapper-event = 7:1.02.158-2.el7_7.2 for package: 7:lvm2-libs-2.02.185-2.el7_7.2.x86_64
+---> Package parted.x86_64 0:3.1-31.el7 will be installed
+---> Package policycoreutils.x86_64 0:2.5-33.el7 will be installed
+---> Package policycoreutils-python.x86_64 0:2.5-33.el7 will be installed
+--> Processing Dependency: setools-libs >= 3.3.8-4 for package: policycoreutils-python-2.5-33.el7.x86_64
+--> Processing Dependency: libsemanage-python >= 2.5-14 for package: policycoreutils-python-2.5-33.el7.x86_64
+--> Processing Dependency: audit-libs-python >= 2.1.3-4 for package: policycoreutils-python-2.5-33.el7.x86_64
+--> Processing Dependency: python-IPy for package: policycoreutils-python-2.5-33.el7.x86_64
+--> Processing Dependency: libselinux-python for package: policycoreutils-python-2.5-33.el7.x86_64
+--> Processing Dependency: libqpol.so.1(VERS_1.4)(64bit) for package: policycoreutils-python-2.5-33.el7.x86_64
+--> Processing Dependency: libqpol.so.1(VERS_1.2)(64bit) for package: policycoreutils-python-2.5-33.el7.x86_64
+--> Processing Dependency: libcgroup for package: policycoreutils-python-2.5-33.el7.x86_64
+--> Processing Dependency: libapol.so.4(VERS_4.0)(64bit) for package: policycoreutils-python-2.5-33.el7.x86_64
+--> Processing Dependency: checkpolicy for package: policycoreutils-python-2.5-33.el7.x86_64
+--> Processing Dependency: libqpol.so.1()(64bit) for package: policycoreutils-python-2.5-33.el7.x86_64
+--> Processing Dependency: libapol.so.4()(64bit) for package: policycoreutils-python-2.5-33.el7.x86_64
+---> Package python-pytoml.noarch 0:0.1.14-1.git7dea353.el7 will be installed
+---> Package python-setuptools.noarch 0:0.9.8-7.el7 will be installed
+--> Processing Dependency: python-backports-ssl_match_hostname for package: python-setuptools-0.9.8-7.el7.noarch
+---> Package selinux-policy.noarch 0:3.13.1-252.el7_7.6 will be installed
+---> Package selinux-policy-targeted.noarch 0:3.13.1-252.el7_7.6 will be installed
+---> Package yajl.x86_64 0:2.0.4-4.el7 will be installed
+--> Running transaction check
+---> Package audit-libs-python.x86_64 0:2.8.5-4.el7 will be installed
+---> Package checkpolicy.x86_64 0:2.5-8.el7 will be installed
+---> Package device-mapper-event.x86_64 7:1.02.158-2.el7_7.2 will be installed
+--> Processing Dependency: device-mapper = 7:1.02.158-2.el7_7.2 for package: 7:device-mapper-event-1.02.158-2.el7_7.2.x86_64
+---> Package libcgroup.x86_64 0:0.41-21.el7 will be installed
+---> Package libselinux-python.x86_64 0:2.5-14.1.el7 will be installed
+---> Package libsemanage-python.x86_64 0:2.5-14.el7 will be installed
+---> Package libyaml.x86_64 0:0.1.4-11.el7_0 will be installed
+---> Package python-IPy.noarch 0:0.75-6.el7 will be installed
+---> Package python-backports-ssl_match_hostname.noarch 0:3.5.0.1-1.el7 will be installed
+--> Processing Dependency: python-ipaddress for package: python-backports-ssl_match_hostname-3.5.0.1-1.el7.noarch
+--> Processing Dependency: python-backports for package: python-backports-ssl_match_hostname-3.5.0.1-1.el7.noarch
+---> Package setools-libs.x86_64 0:3.3.8-4.el7 will be installed
+--> Running transaction check
+---> Package device-mapper.x86_64 7:1.02.158-2.el7 will be updated
+--> Processing Dependency: device-mapper = 7:1.02.158-2.el7 for package: 7:device-mapper-libs-1.02.158-2.el7.x86_64
+---> Package device-mapper.x86_64 7:1.02.158-2.el7_7.2 will be an update
+---> Package python-backports.x86_64 0:1.0-8.el7 will be installed
+---> Package python-ipaddress.noarch 0:1.0.16-2.el7 will be installed
+--> Running transaction check
+---> Package device-mapper-libs.x86_64 7:1.02.158-2.el7 will be updated
+---> Package device-mapper-libs.x86_64 7:1.02.158-2.el7_7.2 will be an update
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+=======================================================================================================================================================
+ Package                                             Arch                Version                                            Repository            Size
+=======================================================================================================================================================
+Installing:
+ docker                                              x86_64              2:1.13.1-103.git7f2769b.el7.centos                 extras                18 M
+Installing for dependencies:
+ PyYAML                                              x86_64              3.10-11.el7                                        base                 153 k
+ atomic-registries                                   x86_64              1:1.22.1-29.gitb507039.el7                         extras                35 k
+ audit-libs-python                                   x86_64              2.8.5-4.el7                                        base                  76 k
+ checkpolicy                                         x86_64              2.5-8.el7                                          base                 295 k
+ container-selinux                                   noarch              2:2.107-3.el7                                      extras                39 k
+ container-storage-setup                             noarch              0.11.0-2.git5eaf76c.el7                            extras                35 k
+ containers-common                                   x86_64              1:0.1.37-3.el7.centos                              extras                21 k
+ device-mapper-event                                 x86_64              7:1.02.158-2.el7_7.2                               updates              190 k
+ device-mapper-event-libs                            x86_64              7:1.02.158-2.el7_7.2                               updates              189 k
+ device-mapper-persistent-data                       x86_64              0.8.5-1.el7                                        base                 423 k
+ docker-client                                       x86_64              2:1.13.1-103.git7f2769b.el7.centos                 extras               3.9 M
+ docker-common                                       x86_64              2:1.13.1-103.git7f2769b.el7.centos                 extras                97 k
+ libaio                                              x86_64              0.3.109-13.el7                                     base                  24 k
+ libcgroup                                           x86_64              0.41-21.el7                                        base                  66 k
+ libseccomp                                          x86_64              2.3.1-3.el7                                        base                  56 k
+ libselinux-python                                   x86_64              2.5-14.1.el7                                       base                 235 k
+ libselinux-utils                                    x86_64              2.5-14.1.el7                                       base                 151 k
+ libsemanage-python                                  x86_64              2.5-14.el7                                         base                 113 k
+ libyaml                                             x86_64              0.1.4-11.el7_0                                     base                  55 k
+ lvm2                                                x86_64              7:2.02.185-2.el7_7.2                               updates              1.3 M
+ lvm2-libs                                           x86_64              7:2.02.185-2.el7_7.2                               updates              1.1 M
+ oci-register-machine                                x86_64              1:0-6.git2b44233.el7                               extras               1.1 M
+ oci-systemd-hook                                    x86_64              1:0.2.0-1.git05e6923.el7_6                         extras                34 k
+ oci-umount                                          x86_64              2:2.5-3.el7                                        extras                33 k
+ parted                                              x86_64              3.1-31.el7                                         base                 609 k
+ policycoreutils                                     x86_64              2.5-33.el7                                         base                 916 k
+ policycoreutils-python                              x86_64              2.5-33.el7                                         base                 457 k
+ python-IPy                                          noarch              0.75-6.el7                                         base                  32 k
+ python-backports                                    x86_64              1.0-8.el7                                          base                 5.8 k
+ python-backports-ssl_match_hostname                 noarch              3.5.0.1-1.el7                                      base                  13 k
+ python-ipaddress                                    noarch              1.0.16-2.el7                                       base                  34 k
+ python-pytoml                                       noarch              0.1.14-1.git7dea353.el7                            extras                18 k
+ python-setuptools                                   noarch              0.9.8-7.el7                                        base                 397 k
+ selinux-policy                                      noarch              3.13.1-252.el7_7.6                                 updates              492 k
+ selinux-policy-targeted                             noarch              3.13.1-252.el7_7.6                                 updates              7.0 M
+ setools-libs                                        x86_64              3.3.8-4.el7                                        base                 620 k
+ subscription-manager-rhsm-certificates              x86_64              1.24.13-3.el7.centos                               updates              228 k
+ xfsprogs                                            x86_64              4.5.0-20.el7                                       base                 896 k
+ yajl                                                x86_64              2.0.4-4.el7                                        base                  39 k
+Updating for dependencies:
+ device-mapper                                       x86_64              7:1.02.158-2.el7_7.2                               updates              294 k
+ device-mapper-libs                                  x86_64              7:1.02.158-2.el7_7.2                               updates              322 k
+
+Transaction Summary
+=======================================================================================================================================================
+Install  1 Package  (+39 Dependent packages)
+Upgrade             (  2 Dependent packages)
+
+Total download size: 39 M
+Background downloading packages, then exiting:
+Delta RPMs disabled because /usr/bin/applydeltarpm not installed.
+(1/42): atomic-registries-1.22.1-29.gitb507039.el7.x86_64.rpm                                                                   |  35 kB  00:00:00     
+(2/42): container-storage-setup-0.11.0-2.git5eaf76c.el7.noarch.rpm                                                              |  35 kB  00:00:00     
+(3/42): container-selinux-2.107-3.el7.noarch.rpm                                                                                |  39 kB  00:00:00     
+(4/42): audit-libs-python-2.8.5-4.el7.x86_64.rpm                                                                                |  76 kB  00:00:00     
+(5/42): PyYAML-3.10-11.el7.x86_64.rpm                                                                                           | 153 kB  00:00:00     
+(6/42): containers-common-0.1.37-3.el7.centos.x86_64.rpm                                                                        |  21 kB  00:00:00     
+(7/42): checkpolicy-2.5-8.el7.x86_64.rpm                                                                                        | 295 kB  00:00:01     
+(8/42): device-mapper-event-1.02.158-2.el7_7.2.x86_64.rpm                                                                       | 190 kB  00:00:01     
+(9/42): device-mapper-persistent-data-0.8.5-1.el7.x86_64.rpm                                                                    | 423 kB  00:00:00     
+(10/42): device-mapper-event-libs-1.02.158-2.el7_7.2.x86_64.rpm                                                                 | 189 kB  00:00:01     
+(11/42): device-mapper-1.02.158-2.el7_7.2.x86_64.rpm                                                                            | 294 kB  00:00:01     
+(12/42): libaio-0.3.109-13.el7.x86_64.rpm                                                                                       |  24 kB  00:00:00     
+(13/42): docker-common-1.13.1-103.git7f2769b.el7.centos.x86_64.rpm                                                              |  97 kB  00:00:00     
+(14/42): libcgroup-0.41-21.el7.x86_64.rpm                                                                                       |  66 kB  00:00:00     
+(15/42): libselinux-python-2.5-14.1.el7.x86_64.rpm                                                                              | 235 kB  00:00:02     
+(16/42): libseccomp-2.3.1-3.el7.x86_64.rpm                                                                                      |  56 kB  00:00:02     
+(17/42): libselinux-utils-2.5-14.1.el7.x86_64.rpm                                                                               | 151 kB  00:00:00     
+(18/42): libyaml-0.1.4-11.el7_0.x86_64.rpm                                                                                      |  55 kB  00:00:00     
+(19/42): libsemanage-python-2.5-14.el7.x86_64.rpm                                                                               | 113 kB  00:00:07     
+(20/42): device-mapper-libs-1.02.158-2.el7_7.2.x86_64.rpm                                                                       | 322 kB  00:00:14     
+(21/42): docker-client-1.13.1-103.git7f2769b.el7.centos.x86_64.rpm                                                              | 3.9 MB  00:00:20     
+(22/42): lvm2-2.02.185-2.el7_7.2.x86_64.rpm                                                                                     | 1.3 MB  00:00:16     
+(23/42): lvm2-libs-2.02.185-2.el7_7.2.x86_64.rpm                                                                                | 1.1 MB  00:00:10     
+(24/42): oci-register-machine-0-6.git2b44233.el7.x86_64.rpm                                                                     | 1.1 MB  00:00:08     
+(25/42): oci-umount-2.5-3.el7.x86_64.rpm                                                                                        |  33 kB  00:00:01     
+(26/42): parted-3.1-31.el7.x86_64.rpm                                                                                           | 609 kB  00:00:01     
+(27/42): oci-systemd-hook-0.2.0-1.git05e6923.el7_6.x86_64.rpm                                                                   |  34 kB  00:00:03     
+(28/42): policycoreutils-python-2.5-33.el7.x86_64.rpm                                                                           | 457 kB  00:00:01     
+(29/42): python-IPy-0.75-6.el7.noarch.rpm                                                                                       |  32 kB  00:00:00     
+(30/42): python-backports-ssl_match_hostname-3.5.0.1-1.el7.noarch.rpm                                                           |  13 kB  00:00:00     
+(31/42): python-ipaddress-1.0.16-2.el7.noarch.rpm                                                                               |  34 kB  00:00:00     
+(32/42): python-backports-1.0-8.el7.x86_64.rpm                                                                                  | 5.8 kB  00:00:00     
+(33/42): python-pytoml-0.1.14-1.git7dea353.el7.noarch.rpm                                                                       |  18 kB  00:00:00     
+(34/42): python-setuptools-0.9.8-7.el7.noarch.rpm                                                                               | 397 kB  00:00:01     
+(35/42): setools-libs-3.3.8-4.el7.x86_64.rpm                                                                                    | 620 kB  00:00:02     
+(36/42): subscription-manager-rhsm-certificates-1.24.13-3.el7.centos.x86_64.rpm                                                 | 228 kB  00:00:00     
+(37/42): selinux-policy-3.13.1-252.el7_7.6.noarch.rpm                                                                           | 492 kB  00:00:05     
+(38/42): yajl-2.0.4-4.el7.x86_64.rpm                                                                                            |  39 kB  00:00:00     
+(39/42): policycoreutils-2.5-33.el7.x86_64.rpm                                                                                  | 916 kB  00:00:08     
+(40/42): xfsprogs-4.5.0-20.el7.x86_64.rpm                                                                                       | 896 kB  00:00:04     
+(41/42): selinux-policy-targeted-3.13.1-252.el7_7.6.noarch.rpm                                                                  | 7.0 MB  00:00:21     
+(42/42): docker-1.13.1-103.git7f2769b.el7.centos.x86_64.rpm                                                                     |  18 MB  00:00:47     
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+Total                                                                                                                  819 kB/s |  39 MB  00:00:49     
+exiting because "Download Only" specified
+make[1]: Leaving directory `/tmp/rpm-pkg'
 ```
 
 ### Maven build

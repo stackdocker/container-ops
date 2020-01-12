@@ -5,6 +5,7 @@
 *.tar
 *.gz
 *.bz2
+yum_save_*
 
 supervisor-sample.conf
 

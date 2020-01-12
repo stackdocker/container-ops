@@ -8,6 +8,7 @@ ALL_IN_ONE_CONTAINER ?= demo
 ALL_IN_ONE_SUFFIX ?= .ubuntu
 
 SPRINGBOOT_WEBAPP_IMGREPO ?= nebroad/test
+IMGREPO_TOTAR ?= nebroad/test
 
 uname_info = $(shell uname -a)
 
@@ -83,12 +84,12 @@ build-springboot-webapp:
 	  --build-arg SPRING_CACHE_TYPE=NONE \
 	  -t $(SPRINGBOOT_WEBAPP_IMGREPO) -f Dockerfile.springboot-webapp .
 
+tarname=$(shell echo $(IMGREPO_TOTAR) | sed "s%/%_%g")
+img-to-tar: $(tarname)
+	$(docker_cmd) save -o "$(tarname).tar" $(IMGREPO_TOTAR)
 	
-img-to-tar:
-	$(docker-cmd) save -o "${$(SPRINGBOOT_WEBAPP_IMGREPO)/\//_}.tar" $(SPRINGBOOT_WEBAPP_IMGREPO)
-	
-tar-to-img:
-	$(docker-cmd) load -i "${$(SPRINGBOOT_WEBAPP_IMGREPO)/\//_}.tar"
+tar-to-img: $(tarname)
+	$(docker_cmd) load -i "$(tarname).tar"
 
 compose:
 	# @docker-compose -p nebroad-demo up -d
@@ -103,7 +104,7 @@ work-offline-packages:
 	  @echo "unknown package format"; \
 	  exit 1; \
 	fi
-	@echo "download docker engine packages into" $(OFFLINE_PKG_DIR)
+	@echo "new packages into" $(OFFLINE_PKG_DIR)
 	$(MAKE) -C $(OFFLINE_PKG_DIR) download
 	
 install-offline-pkgs:

@@ -1,0 +1,135 @@
+From ubuntu:18.04
+
+ENV REDIS_VERSION 4.0.14
+ENV MYSQL_VERSION 5.7.28-0ubuntu0.18.04.4
+# ENV MYSQL_VERSION 5.7.28-1debian9
+ENV TZ=Asia/Shanghai
+
+# add gosu for easy step-down from root
+ENV GOSU_VERSION 1.11
+RUN set -eux; \
+# save list of currently installed packages for later so we can clean up
+	# savedAptMark="$(apt-mark showmanual)";
+	apt-get update; \
+	DEBIAN_FRONTEND="noninteractive" apt-get install -y --no-install-recommends \
+		ca-certificates \
+		dirmngr \
+		gnupg \
+		wget \
+		net-tools \
+		redis-server \
+		pwgen \
+		openssl \
+		tzdata \
+		mysql-server="${MYSQL_VERSION}" \
+		openjdk-8-jdk \
+		supervisor \
+	; \
+	rm -rf /var/lib/apt/lists/*; \
+	\
+	dpkgArch="$(dpkg --print-architecture | awk -F- '{ print $NF }')"; \
+	wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch"; \
+	wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch.asc"; \
+	\
+# verify the signature
+	export GNUPGHOME="$(mktemp -d)"; \
+	gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4; \
+	gpg --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu; \
+	gpgconf --kill all; \
+	rm -rf "$GNUPGHOME" /usr/local/bin/gosu.asc; \
+	\
+	chmod +x /usr/local/bin/gosu; \
+# verify that the binary works
+	gosu --version; \
+	gosu nobody true; \
+	\
+	redis-cli --version; \
+	redis-server --version; \
+	mysql --version; \
+	mysqld --version; \
+	java -version; \
+	supervisorctl -h; \
+	supervisord -h; \
+	\
+# clean up fetch dependencies
+	# apt-mark auto '.*' > /dev/null;
+	# [ -z "$savedAptMark" ] || apt-mark manual $savedAptMark > /dev/null;
+	# apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false ca-certificates wget;
+	\
+# wind up
+	echo $TZ > /etc/timezone \
+	&& rm -f /etc/localtime \
+	&& ln -fs /usr/share/zoneinfo/$TZ /etc/localtime \
+	&& dpkg-reconfigure -f noninteractive tzdata; \
+	echo
+
+
+# add our user and group first to make sure their IDs get assigned consistently, regardless of whatever dependencies get added
+RUN groupadd -r -g 999 redis && useradd -r -g redis -u 999 redis; \
+    \
+# redis-server data dir
+	mkdir /data \
+	&& chown redis:redis /data; \
+	\
+# (ports are not automatically exposed when running inside Docker, but rather explicitly by specifying -p / -P)
+# [1]: https://github.com/antirez/redis/commit/edd4d555df57dc84265fdfb4ef59a4678832f6da
+    sed -i "s/^daemonize .*$/# &\ndaemonize no/;s/^supervised .*$/# &\nsupervised no/" /etc/redis/redis.conf
+	
+
+VOLUME /data
+# WORKDIR /data
+
+# COPY docker-entrypoint.sh /usr/local/bin/
+COPY redis-docker-entrypoint.sh /
+# ENTRYPOINT ["docker-entrypoint.sh"]
+
+EXPOSE 6379
+# CMD ["redis-server"]
+
+	
+# add our user and group first to make sure their IDs get assigned consistently, regardless of whatever dependencies get added
+RUN groupadd -r mysql && useradd -r -g mysql mysql; \
+    \
+# mysql-server db init scripts dir
+	mkdir /docker-entrypoint-initdb.d; \
+	\
+    rm -rf /var/lib/mysql \
+	&& mkdir -p /var/lib/mysql /var/run/mysqld \
+	&& chown -R mysql:mysql /var/lib/mysql /var/run/mysqld \
+# ensure that /var/run/mysqld (used for socket and lock files) is writable regardless of the UID our mysqld instance ends up having at runtime
+	&& chmod 777 /var/run/mysqld \
+# comment out a few problematic configuration values
+	&& find /etc/mysql/ -name '*.cnf' -print0 \
+		| xargs -0 grep -lZE '^(bind-address|log)' \
+		| xargs -rt -0 sed -Ei 's/^(bind-address|log)/#&/' \
+# don't reverse lookup hostnames, they are usually another container
+	&& echo '[mysqld]\nskip-host-cache\nskip-name-resolve' > /etc/mysql/conf.d/docker.cnf
+
+
+VOLUME /var/lib/mysql
+
+# COPY docker-entrypoint.sh /usr/local/bin/
+COPY mysql-docker-entrypoint.sh /
+# RUN ln -s usr/local/bin/docker-entrypoint.sh /entrypoint.sh # backwards compat
+# ENTRYPOINT ["docker-entrypoint.sh"]
+
+EXPOSE 3306 33060
+# CMD ["mysqld"]
+
+
+# WebApp
+ENV JAVA_OPTIONS="-Xms128m -Xmx512m -XX:PermSize=128m -XX:MaxPermSize=256m"
+
+# COPY ./webappdemo.war /springboot/webapp.war
+VOLUME /springboot/webapp.war
+
+EXPOSE 8080
+
+# supervisord
+
+COPY supervisord-mysqld.conf supervisord-redis.conf supervisord-springboot-webapp.conf /etc/supervisor/conf.d/
+
+
+# ENTRYPOINT ["supervisord", "--nodaemon"]
+CMD ["supervisord", "--nodaemon"]
+
